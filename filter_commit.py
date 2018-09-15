@@ -4,6 +4,8 @@ def filter_number_code_file(commits, num_file):
     for c in commits:
         if len(c["code"]) <= num_file:
             commit_id.append(c["id"])
+        else:
+            print 'testing'
     return commit_id
 
 

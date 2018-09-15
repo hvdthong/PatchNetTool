@@ -1,14 +1,19 @@
-from extract_commit import commits_index, commit_id, commit_stable, \
-    commit_msg, commit_date, commit_code, commit_msg_new, commit_code_new, commit_date_july, commit_msg_july, \
-    commit_code_july
-from filter_commit import filter_number_code_file, filter_number_code_hunk, filter_loc_hunk, filter_loc_len
 import os
+
+from filter_commit import filter_number_code_file, filter_number_code_hunk, filter_loc_hunk, filter_loc_len
+from extracting import commit_id, commit_stable, commit_msg, commit_date, commit_code
+from reformating import reformat_file, reformat_hunk
 
 
 def load_file(path_file):
     lines = list(open(path_file, "r").readlines())
     lines = [l.strip() for l in lines]
     return lines
+
+
+def commits_index(commits):
+    commits_index = [i for i, c in enumerate(commits) if c.startswith("commit:")]
+    return commits_index
 
 
 def write_file(path_file, data):
@@ -35,23 +40,6 @@ def commit_info(commit):
     return id, stable, date, msg, code
 
 
-def commit_info_july(commit):
-    id = commit_id(commit)
-    stable = commit_stable(commit)
-    date = commit_date_july(commit)
-    msg = commit_msg_july(commit)
-    code = commit_code_july(commit)
-    return id, stable, date, msg, code
-
-
-def commit_info_new(commit):
-    id = commit_id(commit)
-    stable = commit_stable(commit)
-    msg = commit_msg_new(commit)
-    code = commit_code_new(commit)
-    return id, stable, msg, code
-
-
 def extract_commit(path_file):
     # extract commit from july data
     commits = load_file(path_file=path_file)
@@ -60,9 +48,9 @@ def extract_commit(path_file):
     for i in xrange(0, len(indexes)):
         dict = {}
         if i == len(indexes) - 1:
-            id, stable, date, msg, code = commit_info_july(commits[indexes[i]:])
+            id, stable, date, msg, code = commit_info(commits[indexes[i]:])
         else:
-            id, stable, date, msg, code = commit_info_july(commits[indexes[i]:indexes[i + 1]])
+            id, stable, date, msg, code = commit_info(commits[indexes[i]:indexes[i + 1]])
         dict["id"] = id
         dict["stable"] = stable
         dict["date"] = date
@@ -87,17 +75,6 @@ def get_commits(commits, ids):
     return new_commits
 
 
-def filtering_commit(commits, num_file, num_hunk, num_loc, size_line):
-    code_file_ids = filter_number_code_file(commits=commits, num_file=num_file)
-    code_hunk_ids = filter_number_code_hunk(commits=commits, num_hunk=num_hunk)
-    loc_hunk_ids = filter_loc_hunk(commits=commits, num_loc=num_loc)
-    loc_len_ids = filter_loc_len(commits=commits, size_line=size_line)
-    all_ids = [code_file_ids] + [code_hunk_ids] + [loc_hunk_ids] + [loc_len_ids]
-    intersect_ids = interset(all_ids)
-    new_commits = get_commits(commits=commits, ids=intersect_ids)
-    return new_commits
-
-
 def filtering_commit_union(commits, num_file, num_hunk, num_loc, size_line):
     code_file_ids = filter_number_code_file(commits=commits, num_file=num_file)
     code_hunk_ids = filter_number_code_hunk(commits=commits, num_hunk=num_hunk)
@@ -108,9 +85,18 @@ def filtering_commit_union(commits, num_file, num_hunk, num_loc, size_line):
     return all_ids
 
 
+def reformat_commit_code(commits, num_file, num_hunk, num_loc, size_line):
+    commits = reformat_file(commits=commits, num_file=num_file)
+    commits = reformat_hunk(commits=commits, num_hunk=num_hunk)
+    return commits
+
+
 if __name__ == "__main__":
     path_data = "./data/data_small.text"
     commits_ = extract_commit(path_file=path_data)
-    nfile, nhunk, nline, nleng = 1, 8, 10, 120
-    total_ids = filtering_commit_union(commits=commits_, num_file=nfile, num_hunk=nhunk, num_loc=nline, size_line=nleng)
-    print total_ids
+    nfile, nhunk, nloc, nleng = 1, 8, 10, 120
+
+    # total_ids = filtering_commit_union(commits=commits_, num_file=nfile, num_hunk=nhunk, num_loc=nloc, size_line=nleng)
+    # print total_ids
+
+    reformat_commit_code(commits=commits_, num_file=nfile, num_hunk=nhunk, num_loc=nloc, size_line=nleng)
