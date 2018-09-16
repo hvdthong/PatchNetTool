@@ -6,22 +6,24 @@ def reformat_file(commits, num_file):
     return commits
 
 
-def update_hunk(hunk, num_hunk):
+def update_hunk(hunk, num_hunk, num_loc, num_leng):
     new_hunk = dict()
     for key in hunk:
         if key <= num_hunk:
-            new_hunk[key] = hunk[key]
+            loc_values = hunk[key][:num_loc]
+            length_values = list()
+            for v in loc_values:
+                split_v = v.split(',')[:num_leng]
+                length_values.append(','.join(split_v))
+            new_hunk[key] = length_values
     return new_hunk
 
 
-def reformat_hunk(commits, num_hunk):
+def reformat_hunk(commits, num_hunk, num_loc, num_leng):
     for c in commits:
         hunk = c['code'][0]
-        added_hunk, removed_hunk = hunk['added'].keys(), hunk['removed'].keys()
-        cnt_hunk = added_hunk + removed_hunk
-        if max(cnt_hunk) > num_hunk:
-            new_added_hunk, new_removed_hunk = update_hunk(hunk=hunk['added'], num_hunk=num_hunk), \
-                                               update_hunk(hunk=hunk['removed'], num_hunk=num_hunk)
-            hunk.update({'added': new_added_hunk})
-            hunk.update({'removed': new_removed_hunk})
+        new_added_hunk = update_hunk(hunk=hunk['added'], num_hunk=num_hunk, num_loc=num_loc, num_leng=num_leng)
+        new_removed_hunk = update_hunk(hunk=hunk['removed'], num_hunk=num_hunk, num_loc=num_loc, num_leng=num_leng)
+        hunk.update({'added': new_added_hunk})
+        hunk.update({'removed': new_removed_hunk})
     return commits

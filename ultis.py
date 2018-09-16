@@ -85,18 +85,18 @@ def filtering_commit_union(commits, num_file, num_hunk, num_loc, size_line):
     return all_ids
 
 
-def reformat_commit_code(commits, num_file, num_hunk, num_loc, size_line):
+def reformat_commit_code(commits, num_file, num_hunk, num_loc, num_leng):
     commits = reformat_file(commits=commits, num_file=num_file)
-    commits = reformat_hunk(commits=commits, num_hunk=num_hunk)
+    commits = reformat_hunk(commits=commits, num_hunk=num_hunk, num_loc=num_loc, num_leng=num_leng)
     return commits
 
 
 if __name__ == "__main__":
     path_data = "./data/data_small.text"
+    path_data = "./data/newres_funcalls_jul28.out"
     commits_ = extract_commit(path_file=path_data)
     nfile, nhunk, nloc, nleng = 1, 8, 10, 120
+    new_commits = reformat_commit_code(commits=commits_, num_file=nfile, num_hunk=nhunk, num_loc=nloc, num_leng=nleng)
 
-    # total_ids = filtering_commit_union(commits=commits_, num_file=nfile, num_hunk=nhunk, num_loc=nloc, size_line=nleng)
-    # print total_ids
-
-    reformat_commit_code(commits=commits_, num_file=nfile, num_hunk=nhunk, num_loc=nloc, size_line=nleng)
+    # total_ids = filtering_commit_union(commits=new_commits, num_file=nfile, num_hunk=nhunk, num_loc=nloc, size_line=nleng)
+    # print len(total_ids)
