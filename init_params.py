@@ -1,18 +1,17 @@
 import tensorflow as tf
 
 
-def model_parameters(msg_length, code_length, code_line, code_hunk, code_file,
-                     embedding_dim_text, filter_sizes, num_filters, hidden_units, dropout_keep_prob, l2_reg_lambda,
+def model_parameters(msg_length, code_length, code_line, code_hunk,
+                     embedding_dim, filter_sizes, num_filters, hidden_units, dropout_keep_prob, l2_reg_lambda,
                      learning_rate, batch_size, num_epochs, evaluate_every, checkpoint_every, num_checkpoints):
     # Data loading
     tf.flags.DEFINE_integer("msg_length", msg_length, "Max length of message in commits")
     tf.flags.DEFINE_integer("code_length", code_length, "Max length of code in one line in commits")
     tf.flags.DEFINE_integer("code_line", code_line, "Max line of code in one hunk in commits")
     tf.flags.DEFINE_integer("code_hunk", code_hunk, "Max hunk of code in one file in commits")
-    tf.flags.DEFINE_integer("code_file", code_file, "Max file of code in one in commits")
 
     # Model Hyperparameters for commit message (text) and commit code
-    tf.flags.DEFINE_integer("embedding_dim_text", embedding_dim_text,
+    tf.flags.DEFINE_integer("embedding_dim", embedding_dim,
                             "Dimensionality of character embedding for text in commit message")
     # num_filters, filter_sizes is used for both commit message (text) and commit code
     tf.flags.DEFINE_string("filter_sizes", filter_sizes, "Comma-separated filter sizes")

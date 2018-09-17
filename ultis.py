@@ -16,21 +16,6 @@ def commits_index(commits):
     return commits_index
 
 
-def write_file(path_file, data):
-    split_path = path_file.split("/")
-    path_ = split_path[:len(split_path) - 1]
-    path_ = "/".join(path_)
-
-    if not os.path.exists(path_):
-        os.makedirs(path_)
-    with open(path_file, 'w') as out_file:
-        for line in data:
-            # write line to output file
-            out_file.write(str(line))
-            out_file.write("\n")
-        out_file.close()
-
-
 def commit_info(commit):
     id = commit_id(commit)
     stable = commit_stable(commit)
@@ -58,31 +43,6 @@ def extract_commit(path_file):
         dict["code"] = code
         dicts.append(dict)
     return dicts
-
-
-def interset(lists):
-    result = set(lists[0])
-    for i in xrange(1, len(lists)):
-        result = result.intersection(lists[i])
-    return list(result)
-
-
-def get_commits(commits, ids):
-    new_commits = []
-    for c in commits:
-        if c["id"] in ids:
-            new_commits.append(c)
-    return new_commits
-
-
-def filtering_commit_union(commits, num_file, num_hunk, num_loc, size_line):
-    code_file_ids = filter_number_code_file(commits=commits, num_file=num_file)
-    code_hunk_ids = filter_number_code_hunk(commits=commits, num_hunk=num_hunk)
-    loc_hunk_ids = filter_loc_hunk(commits=commits, num_loc=num_loc)
-    loc_len_ids = filter_loc_len(commits=commits, size_line=size_line)
-    all_ids = [code_file_ids] + [code_hunk_ids] + [loc_hunk_ids] + [loc_len_ids]
-    all_ids = interset(all_ids)
-    return all_ids
 
 
 def reformat_commit_code(commits, num_file, num_hunk, num_loc, num_leng):
