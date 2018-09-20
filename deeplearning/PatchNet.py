@@ -51,6 +51,7 @@ if __name__ == '__main__':
     commits = extract_commit(path_file=input_option.data_dir)
     commits = reformat_commit_code(commits=commits, num_file=1, num_hunk=input_option.code_hunk,
                                    num_loc=input_option.code_line, num_leng=input_option.code_length)
+
     if input_option.train is True:
         train_model(commits=commits, params=input_option)
         print '--------------------------------------------------------------------------------'

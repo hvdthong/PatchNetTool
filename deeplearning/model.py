@@ -217,8 +217,6 @@ class PatchNet(object):
             num_filters_total=len(self.filter_sizes) * self.num_filters,
             pooled_outputs=pooled_outputs_hunk_addedcode,
             height=self.max_code_hunk)
-        # self.pooled_outputs_hunk_addedcode = tf.contrib.layers.flatten(self.pooled_outputs_hunk_addedcode)
-        # self.pooled_outputs_hunk_addedcode = tf.reshape(self.pooled_outputs_hunk_addedcode, [None, -1])
 
     def _create_conv_maxpool_hunk_removedcode_layer(self):
         pooled_outputs_hunk_removedcode = self._create_conv_maxpool_3d_layer(filter_sizes=self.filter_sizes,
@@ -272,6 +270,28 @@ class PatchNet(object):
     # ==================================================
     # making weight to connect fusion layer -> hidden layer -> output layer
     # later
+    def _create_weight_fusion_hidden_layer(self):
+        with tf.name_scope("weight_fusion_hidden"):
+            self.W_hidden = tf.get_variable(
+                "W_hidden",
+                shape=[self.fusion_layer_dropout.get_shape()[1], self.hidden_units],
+                initializer=tf.contrib.layers.xavier_initializer())
+            self.b_hidden = tf.Variable(tf.constant(0.1, shape=[self.hidden_units]), name="b_hidden")
+            self.A_hidden = tf.nn.elu(tf.nn.xw_plus_b(self.fusion_layer_dropout, self.W_hidden, self.b_hidden))
+            self.A_hidden_dropout = tf.nn.dropout(self.A_hidden, self.dropout_keep_prob)
+
+            self.W_fusion = tf.get_variable(
+                "W_fusion",
+                shape=[self.A_hidden_dropout.get_shape()[1], self.num_classes],
+                initializer=tf.contrib.layers.xavier_initializer())
+            self.b_fusion = tf.Variable(tf.constant(0.1, shape=[self.num_classes]), name="b")
+            self.l2_loss += tf.nn.l2_loss(self.W_fusion)
+            self.l2_loss += tf.nn.l2_loss(self.b_fusion)
+
+    def _create_output_fusion_hidden_layer(self):
+        with tf.name_scope("output"):
+            self.scores = tf.nn.xw_plus_b(self.A_hidden_dropout, self.W_fusion, self.b_fusion, name="scores")
+            self.predictions = tf.argmax(self.scores, 1, name="predictions")
 
     # ==================================================
     # making weight to connect fusion layer -> output layer
@@ -290,25 +310,20 @@ class PatchNet(object):
     def _create_output_layer(self):
         with tf.name_scope("output"):
             self.scores = tf.nn.xw_plus_b(self.fusion_layer_dropout, self.W_fusion, self.b_fusion, name="scores")
-            # self.predictions = tf.sigmoid(self.scores, name="pred_prob")
             self.predictions = tf.argmax(self.scores, 1, name="predictions")
 
     # ==================================================
     # create output layer (score and prediction)
     def _create_loss_function(self):
         with tf.name_scope("loss"):
-            # losses = tf.nn.sigmoid_cross_entropy_with_logits(logits=self.scores, labels=self.input_y)
             losses = tf.nn.softmax_cross_entropy_with_logits(logits=self.scores, labels=self.input_y)
             self.loss = tf.reduce_mean(losses) + self.l2_reg_lambda * self.l2_loss
 
     # check the accuracy of out predicted instances
     def _measure_accuracy(self):
         with tf.name_scope("accuracy"):
-            # self.pred_label = tf.to_int64(self.predictions >= 0.5, name="pred_labels")
-            # correct_predictions = tf.equal(self.pred_label, tf.argmax(self.input_y, 1))
             correct_predictions = tf.equal(self.predictions, tf.argmax(self.input_y, 1))
             self.accuracy = tf.reduce_mean(tf.cast(correct_predictions, "float"), name="accuracy")
-            # self.accuracy = tf.metrics.accuracy(labels=self.input_y, predictions=self.pred_label)
 
     # ==================================================
     # ==================================================
@@ -328,11 +343,10 @@ class PatchNet(object):
             self._create_embedding_addedcode()
             self._create_conv_maxpool_hunk_removedcode_layer()
             self._create_embedding_removedcode()
-            # self._create_fusion_layer()
             self._create_fusion_text_diffcode_layer()
             self._adding_dropout_fusion_layer()
-            self._create_weight_fusion_layer()
-            self._create_output_layer()
+            self._create_weight_fusion_hidden_layer()
+            self._create_output_fusion_hidden_layer()
             self._create_loss_function()
             self._measure_accuracy()
         elif model == "msg":
@@ -358,10 +372,9 @@ class PatchNet(object):
             self._create_embedding_addedcode()
             self._create_conv_maxpool_hunk_removedcode_layer()
             self._create_embedding_removedcode()
-            # self._create_fusion_code_layer()
             self._create_fusion_diffcode_layer()
             self._adding_dropout_fusion_layer()
-            self._create_weight_fusion_layer()
-            self._create_output_layer()
+            self._create_weight_fusion_hidden_layer()
+            self._create_output_fusion_hidden_layer()
             self._create_loss_function()
             self._measure_accuracy()
