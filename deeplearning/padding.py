@@ -95,7 +95,10 @@ def mapping_commit_code_file(code, dict_code):
             split_ = l.split(" ")
             new_line = list()
             for w in split_:
-                new_line.append(dict_code[w])
+                if w in dict_code:
+                    new_line.append(dict_code[w])
+                else:
+                    new_line.append(dict_code['NULL'])
             new_hunk.append(np.array(new_line))
         new_hunks.append(np.array(new_hunk))
     return np.array(new_hunks)

@@ -31,8 +31,23 @@ def write_dict_file(path_file, dictionary):
     with open(path_file, 'w') as out_file:
         for key in dictionary.keys():
             # write line to output file
-            # line = key + '\t' + dictionary[key]
             out_file.write(str(key) + '\t' + str(dictionary[key]))
+            out_file.write("\n")
+        out_file.close()
+
+
+def write_file(path_file, data):
+    split_path = path_file.split("/")
+    path_ = split_path[:len(split_path) - 1]
+    path_ = "/".join(path_)
+
+    if not os.path.exists(path_):
+        os.makedirs(path_)
+
+    with open(path_file, 'w') as out_file:
+        for line in data:
+            # write line to output file
+            out_file.write(str(line))
             out_file.write("\n")
         out_file.close()
 

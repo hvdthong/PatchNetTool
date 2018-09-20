@@ -1,4 +1,4 @@
-from ultis import load_dict_file, mini_batches
+from ultis import load_dict_file, mini_batches, write_file
 from padding import padding_pred_commit
 import os
 import tensorflow as tf
@@ -51,7 +51,7 @@ def predict_model(commits, params):
                                    X_removed_code=pad_removed_code,
                                    Y=labels, mini_batch_size=params.batch_size)
             # Collect the predictions here
-            all_scores = list()
+            commits_scores = list()
 
             for batch in batches:
                 batch_input_msg, batch_input_added_code, batch_input_removed_code, batch_input_labels = batch
@@ -59,7 +59,7 @@ def predict_model(commits, params):
                                         {input_msg: batch_input_msg, input_addedcode: batch_input_added_code,
                                          input_removedcode: batch_input_removed_code, dropout_keep_prob: 1.0})
                 batch_scores = np.ravel(softmax(batch_scores)[:, [1]])
-                all_scores = np.concatenate([all_scores, batch_scores])
+                commits_scores = np.concatenate([commits_scores, batch_scores])
+            write_file(path_file=os.path.abspath(os.path.join(os.path.curdir)) + '/prediction.txt',
+                       data=commits_scores)
 
-            for score in all_scores:
-                print score
