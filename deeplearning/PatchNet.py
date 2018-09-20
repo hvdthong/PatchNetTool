@@ -2,7 +2,6 @@ import argparse
 from ultis import extract_commit, reformat_commit_code
 from train import train_model
 from predict import predict_model
-import os
 
 
 def read_args():
