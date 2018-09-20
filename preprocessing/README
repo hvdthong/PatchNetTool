@@ -11,3 +11,9 @@ https://opam.ocaml.org/packages/parmap/
 
 The use of this code on Windows is discouraged, as parmap will not be
 available.
+
+---------------------------------
+
+To create a dataset, type make run.  This will put intermediate data in
+newres.out newres.dict, and newtxt.out.  The final result will be in the
+files newres_funcalls.out and newres.dict.
