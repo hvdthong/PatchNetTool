@@ -1,0 +1,13 @@
+This requires that the following software be previously installed:
+
+OCaml: https://opam.ocaml.org/
+Coccinelle: https://github.com/coccinelle/coccinelle
+Parmap: https://github.com/rdicosmo/parmap
+
+Parmap can also be installed using opam:
+
+https://opam.ocaml.org/
+https://opam.ocaml.org/packages/parmap/
+
+The use of this code on Windows is discouraged, as parmap will not be
+available.
