@@ -3,7 +3,7 @@ import tensorflow as tf
 from model import PatchNet
 import os
 import datetime
-from ultis import random_mini_batch
+from ultis import random_mini_batch, write_dict_file
 
 
 def train_model(commits, params):
@@ -42,6 +42,8 @@ def train_model(commits, params):
             # Define Output model
             out_dir = os.path.abspath(os.path.join(os.path.curdir, 'model', params.model))
             print("Writing to {}\n".format(out_dir))
+            write_dict_file(path_file=out_dir + '/dict_msg.txt', dictionary=dict_msg)
+            write_dict_file(path_file=out_dir + '/dict_code.txt', dictionary=dict_code)
 
             # Summaries for loss and accuracy
             loss_summary = tf.summary.scalar("loss", model.loss)
@@ -89,14 +91,11 @@ def train_model(commits, params):
             mini_batches = random_mini_batch(X_msg=pad_msg, X_added_code=pad_added_code,
                                              X_removed_code=pad_removed_code, Y=labels,
                                              mini_batch_size=params.batch_size)
-            saving_step = int(len(mini_batches) / 3)
             for j in xrange(len(mini_batches)):
                 batch = mini_batches[j]
                 input_msg, input_added_code, input_removed_code, input_labels = batch
                 train_step(input_msg, input_added_code, input_removed_code, input_labels)
                 current_step = tf.train.global_step(sess, global_step)
-                if (j + 1) % saving_step == 0:
-                    path = saver.save(sess, checkpoint_prefix, global_step=current_step)
-                    print "Saved model checkpoint to {}\n".format(path)
-            print "Finish epoch: %i" % (i + 1)
 
+            path = saver.save(sess, checkpoint_prefix, global_step=current_step)
+            print "Saved model checkpoint at epoch %i to {}\n".format(path) % i

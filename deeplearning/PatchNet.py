@@ -1,12 +1,13 @@
 import argparse
 from ultis import extract_commit, reformat_commit_code
 from train import train_model
+from predict import predict_model
 
 
 def read_args():
     parser = argparse.ArgumentParser()
     # Training our model
-    parser.add_argument('--train', action='store_false', help='training PatchNet model')
+    parser.add_argument('--train', action='store_true', help='training PatchNet model')
     parser.add_argument('--data_dir', type=str, default='./data/data_small.text',
                         help='the directory of our training data')
 
@@ -51,6 +52,10 @@ if __name__ == '__main__':
     commits = reformat_commit_code(commits=commits, num_file=1, num_hunk=input_option.code_hunk,
                                    num_loc=input_option.code_line, num_leng=input_option.code_length)
 
-    flag_train = True
-    if flag_train is True:
-        train_model(commits=commits, params=input_option)
+    # flag_train = True
+    # if flag_train is True:
+    #     train_model(commits=commits, params=input_option)
+
+    flag_prediction = True
+    if flag_prediction is True:
+        predict_model(commits=commits, params=input_option)
