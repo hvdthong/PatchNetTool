@@ -17,3 +17,8 @@ available.
 To create a dataset, type make run.  This will put intermediate data in
 newres.out newres.dict, and newtxt.out.  The final result will be in the
 files newres_funcalls.out and newres.dict.
+
+---------------------------------
+
+All code found in this directory or any subdirectory is covered by GPLv2,
+as described in license.txt.
