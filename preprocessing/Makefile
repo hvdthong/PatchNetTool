@@ -2,8 +2,8 @@ PARMAP=$(shell ocamlfind query parmap)
 
 TARGET=getinfo
 LEXER_SOURCES = lexer_c.mll
-SRC=lcommon.ml patch.ml stables.ml $(LEXER_SOURCES:.mll=.ml) \
-equilibrate.ml decomment.ml collect_diff.ml words.ml getinfo.ml
+SRC=lcommon.ml patch.ml $(LEXER_SOURCES:.mll=.ml) \
+decomment.ml collect_diff.ml words.ml getinfo.ml
 
 INCLUDEDIRS= $(PARMAP)
 
