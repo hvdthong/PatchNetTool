@@ -14,9 +14,20 @@ available.
 
 ---------------------------------
 
-To create a dataset, type make run.  This will put intermediate data in
-newres.out newres.dict, and newtxt.out.  The final result will be in the
-files newres_funcalls.out and newres.dict.
+A typical command line is
+
+   ./getinfo --commit-list <commit list> --git <git path>
+
+It is possible to specify --nolog to ignore the commit logs and --balance
+to produce a balanced dataset by discarding some elements. Following this,
+it is necessary to call ./get_function_calls on the result, which is stored
+in newres.out.
+
+All of this is made available in the Makefile.  Specifically, to create a
+dataset, type make run after updating COMMITLIST and GITTREE at the top of
+the Makefile as desired.  This will put intermediate data in newres.out
+newres.dict, and newtxt.out.  The final result will be in the files
+newres_funcalls.out and newres.dict.
 
 ---------------------------------
 

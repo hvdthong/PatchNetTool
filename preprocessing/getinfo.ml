@@ -143,7 +143,7 @@ let options =
     "  list of labelled commits";
     "--git", Arg.Set_string Lcommon.linux,
     "  location of git tree";
-    "--words", Arg.Set words, "  include commit log message";
+    "--nolog", Arg.Clear words, "  exclude commit log message";
     "--balance", Arg.Set balance,
     "  same number of commits with true and false labls";
     "--keep-ifdefs", Arg.Clear Decomment.drop_ifdefs,

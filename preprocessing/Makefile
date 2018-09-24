@@ -1,3 +1,6 @@
+COMMITLIST=commitlist
+GITTREE=gittree
+
 PARMAP=$(shell ocamlfind query parmap)
 
 TARGET=getinfo
@@ -67,7 +70,7 @@ include .depend
 
 # The following also produces newres.dict and newtxt.out
 newres.out: getinfo
-	./getinfo --max-lines 100 --match-stable-lines --match-stable-number > newres.tmp 2>&1
+	./getinfo --commit-list $(COMMITLIST) --git $(GITTREE) > newres.tmp 2>&1
 
 get_function_calls: get_function_calls.ml
 	ocamlc -g -o get_function_calls str.cma unix.cma get_function_calls.ml
