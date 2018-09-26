@@ -5,7 +5,7 @@ The figure belows illustrate our tool:
 
 First time setup
 ----------------
-Please install the neccessary libraries before running our NetML model:
+Please install the neccessary libraries before running our tool:
    
 - python 2.7
 
@@ -17,7 +17,7 @@ Please install the neccessary libraries before running our NetML model:
 Dataset details
 ----------------
 
-* The dataset is put in two folders ./data and ./data_defect4j. The folder ./data includes four projects, namely Ant, Aspectj, Lucene, and Rhino, whereas the folder ./data_defect4j includes three projects, namely Lang, Math, and Time.
+* The dataset is put in the folder ./data. 
 
 
 Example running 
