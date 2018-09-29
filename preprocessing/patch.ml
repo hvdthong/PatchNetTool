@@ -56,7 +56,7 @@ let get_commits commit_file =
 	  [commit;label] ->
 	    (C.cmd_to_list
 	       (Printf.sprintf "cd %s; git log -n 1 %s %s %s -- \"*.[ch]\""
-		  !C.linux pretty fixed_args c),
+		  !C.linux pretty fixed_args commit),
 	     label)
 	| _ ->  failwith "commit file lines should have the format commit: label")
       commits in
