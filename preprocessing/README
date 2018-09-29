@@ -12,17 +12,31 @@ https://opam.ocaml.org/packages/parmap/
 The use of this code on Windows is discouraged, as parmap will not be
 available.
 
+PatchNet assumes the availability of python3.
+
+nltk: pip3 install nltk
+enchant: pip3 install pyenchant
+
+In python, it is necessary to run
+
+>>> import nltk
+>>> nltk.download('stopwords')
+
 ---------------------------------
 
 A typical command line is
 
    ./getinfo --commit-list <commit list> --git <git path> -o newres
 
-It is possible to specify --nolog to ignore the commit logs and --balance
-to produce a balanced dataset by discarding some elements.
+It is possible to specify --nolog to ignore the commit logs, --balance to
+produce a balanced dataset by discarding some elements, and -j to indicate
+the number of cores to use.
 
 This produces the files newres.tmp (intermediate file), newres.out
 (representation of commits) and newres.dict (dictionary for the commits).
+
+For simplicity, the commit list requires labels for both training and
+production data, but for production data the labels are ignored.
 
 ---------------------------------
 
