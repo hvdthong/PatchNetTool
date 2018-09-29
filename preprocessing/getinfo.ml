@@ -138,7 +138,6 @@ let print_output res txt infos logtbl =
 
 let commit_list = ref ""
 let output_prefix = ref ""
-let tmpdir = ref "/tmp"
 
 let options =
   ["-o", Arg.Set_string output_prefix,
@@ -152,8 +151,9 @@ let options =
     "  same number of commits with true and false labls";
     "--keep-ifdefs", Arg.Clear Decomment.drop_ifdefs,
     "  keep ifdefs, for backward compatability";
-    "--tmpdir", Arg.Set_string tmpdir,
+    "--tmpdir", Arg.Set_string C.tmpdir,
     "  temporary directory";
+    "-j", Arg.Set_int C.cores, "  number of cores";
   ]
 let anonymous s = failwith "no anonymous arguments"
 let usage = ""
@@ -161,7 +161,9 @@ let usage = ""
 let _ =
   Arg.parse (Arg.align options) anonymous usage;
   (if !output_prefix = "" then failwith "-o <output file prefix> required");
-  let _ = Sys.command (Printf.sprintf "mkdir -p %s/tmp" !tmpdir) in
+  CD.before := Printf.sprintf "%s/linux-before" !C.tmpdir;
+  CD.after := Printf.sprintf "%s/linux-after" !C.tmpdir;
+  let _ = Sys.command (Printf.sprintf "mkdir -p %s/tmp" !C.tmpdir) in
   let infos = Patch.get_commits !commit_list in
   let infos =
     List.fold_left
@@ -178,16 +180,29 @@ let _ =
   CD.quiet := true;
   let prefix = "/dev/shm/getinfo1" in
   let infos =
-    Parmap.parfold ~ncores:(!C.cores) ~chunksize:C.chunksize
-      ~init:(fun id -> CD.me := id; Parmap.redirect ~path:prefix ~id) 
-      (fun ((commit,_,_,_,_,files) as x) rest ->
-	Printf.eprintf "starting %s\n" commit; flush stderr;
-	try
-	  match CD.getone (commit,files) with
-	    ([],_) -> rest
-	  | cur -> (x,cur) :: rest
-	with CD.Failed -> rest)
-      (Parmap.L infos) [] (@) in
+    if !C.cores = 1
+    then
+      List.rev
+	(List.fold_left
+	   (fun rest ((commit,_,_,_,_,files) as x) ->
+	     Printf.eprintf "starting %s\n" commit; flush stderr;
+	     try
+	       match CD.getone (commit,files) with
+		 ([],_) -> rest
+	       | cur -> (x,cur) :: rest
+	     with CD.Failed -> rest)
+	   [] infos)
+    else
+      Parmap.parfold ~ncores:(!C.cores) ~chunksize:C.chunksize
+	~init:(fun id -> CD.me := id; Parmap.redirect ~path:prefix ~id) 
+	(fun ((commit,_,_,_,_,files) as x) rest ->
+	  Printf.eprintf "starting %s\n" commit; flush stderr;
+	  try
+	    match CD.getone (commit,files) with
+	      ([],_) -> rest
+	    | cur -> (x,cur) :: rest
+	  with CD.Failed -> rest)
+	(Parmap.L infos) [] (@) in
   Printf.eprintf "after parfold\n"; flush stderr;
   Lexer_c.init();
   List.iter (* cannot be parmapped!!! *)

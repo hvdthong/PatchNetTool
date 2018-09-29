@@ -46,6 +46,7 @@ let trim s =
     ""
 let cores = ref 60
 let chunksize = 10
+let tmpdir = ref "/tmp"
 
 let union l1 l2 =
   List.fold_left (fun prev x -> if List.mem x prev then prev else x::prev)

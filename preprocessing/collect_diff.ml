@@ -2,7 +2,6 @@ module C = Lcommon
 
 let before = ref "/dev/shm/linux-before"
 let after = ref "/dev/shm/linux-after"
-let diffinfo = "/tmp/collect_diff"
 let decommented = "___decommented.c"
 let me = ref 0
 let quiet = ref false
@@ -233,6 +232,7 @@ let parse_diff lines =
 exception Failed
     
 let runone commit tag info file =
+  let diffinfo = (!C.tmpdir^"/collect_diff") in
   let diffinfo =
     if !C.cores > 1 then Printf.sprintf "%s%d" diffinfo !me else diffinfo in
   let htbl = Hashtbl.create 101 in
@@ -346,10 +346,10 @@ let seen_words = Hashtbl.create 101
 let getone (commit,files) =
   let separator = "!\"#%&()+*,-./:;<=>?@[\\]^{|}~ \\t" in
   (if not !quiet then Printf.printf "COMMIT: %s\n\n" commit);
-  let btmp = Printf.sprintf "/run/shm/tmp/before_%d.c" !me in
-  let atmp = Printf.sprintf "/run/shm/tmp/after_%d.c" !me in
-  let dbtmp = Printf.sprintf "/run/shm/tmp/before_decommented_%d.c" !me in
-  let datmp = Printf.sprintf "/run/shm/tmp/after_decommented_%d.c" !me in
+  let btmp = Printf.sprintf "%s/tmp/before_%d.c" !C.tmpdir !me in
+  let atmp = Printf.sprintf "%s/tmp/after_%d.c" !C.tmpdir !me in
+  let dbtmp = Printf.sprintf "%s/tmp/before_decommented_%d.c" !C.tmpdir !me in
+  let datmp = Printf.sprintf "%s/tmp/after_decommented_%d.c" !C.tmpdir !me in
   List.fold_left
     (fun prev file ->
       let _ =
