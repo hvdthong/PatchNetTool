@@ -16,18 +16,13 @@ available.
 
 A typical command line is
 
-   ./getinfo --commit-list <commit list> --git <git path>
+   ./getinfo --commit-list <commit list> --git <git path> -o newres
 
 It is possible to specify --nolog to ignore the commit logs and --balance
-to produce a balanced dataset by discarding some elements. Following this,
-it is necessary to call ./get_function_calls on the result, which is stored
-in newres.out.
+to produce a balanced dataset by discarding some elements.
 
-All of this is made available in the Makefile.  Specifically, to create a
-dataset, type make run after updating COMMITLIST and GITTREE at the top of
-the Makefile as desired.  This will put intermediate data in newres.out
-newres.dict, and newtxt.out.  The final result will be in the files
-newres_funcalls.out and newres.dict.
+This produces the files newres.tmp (intermediate file), newres.out
+(representation of commits) and newres.dict (dictionary for the commits).
 
 ---------------------------------
 

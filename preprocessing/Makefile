@@ -1,16 +1,13 @@
-COMMITLIST=commitlist
-GITTREE=gittree
-
 PARMAP=$(shell ocamlfind query parmap)
 
 TARGET=getinfo
 LEXER_SOURCES = lexer_c.mll
 SRC=lcommon.ml patch.ml $(LEXER_SOURCES:.mll=.ml) \
-decomment.ml collect_diff.ml words.ml getinfo.ml
+decomment.ml collect_diff.ml words.ml get_function_calls.ml getinfo.ml
 
 INCLUDEDIRS= $(PARMAP)
 
-SYSLIBS=str.cma unix.cma bigarray.cma nums.cma $(PARMAP)/parmap.cma
+SYSLIBS=str.cma unix.cma bigarray.cma $(PARMAP)/parmap.cma
 OPTSYSLIBS=$(SYSLIBS:.cma=.cmxa)
 
 OBJS=    $(SRC:.ml=.cmo)
@@ -64,16 +61,3 @@ depend:
 	$(OCAMLDEP) *.mli *.ml > .depend
 
 include .depend
-
-# ----------------------------------------------------------------------------
-# Collecting the data
-
-# The following also produces newres.dict and newtxt.out
-newres.out: getinfo
-	./getinfo --commit-list $(COMMITLIST) --git $(GITTREE) > newres.tmp 2>&1
-
-get_function_calls: get_function_calls.ml
-	ocamlc -g -o get_function_calls str.cma unix.cma get_function_calls.ml
-
-run: newres.out get_function_calls
-	./get_function_calls newres.out > newres_funcalls.out

@@ -42,26 +42,26 @@ let get_data l =
     | _ -> failwith "three values should always be present" in
   loop false l
 
-let parse i =
+let parse i o =
   let thecommit = ref "" in
   let rec loop _ =
     let l = input_line i in
     (match Str.split (Str.regexp ":") l with
-      "commit"::rest -> thecommit := l; Printf.printf "%s\n" l
+      "commit"::rest -> thecommit := l; Printf.fprintf o "%s\n" l
     | ("stable"|"author"|"committer"|"commit_date"|"author_date")::
-      rest -> Printf.printf "%s\n" l
+      rest -> Printf.fprintf o "%s\n" l
     | [("commit message"|"simplified commit message")] ->
-	Printf.printf "%s\n" l;
+	Printf.fprintf o "%s\n" l;
 	let l = input_line i in
-	Printf.printf "%s\n" l
-    | [] -> Printf.printf "\n"
+	Printf.fprintf o "%s\n" l
+    | [] -> Printf.fprintf o "\n"
     | ["commit code"] ->
-	Printf.printf "%s\n" l;
+	Printf.fprintf o "%s\n" l;
 	let rec iloop _ =
 	  let l = input_line i in
 	  match Str.split (Str.regexp ": ") l with
 	    [hunk;sign;category;line] ->
-	      Printf.printf "%s: %s: %s: %s\n" hunk sign category
+	      Printf.fprintf o "%s: %s: %s: %s\n" hunk sign category
 		(String.concat ","
 		   (List.map string_of_int
 		      (get_data
@@ -71,18 +71,19 @@ let parse i =
 				(Str.split (Str.regexp "x") entry))
 			    (Str.split (Str.regexp ",") line)))));
 	      iloop()
-	  | ["file";_] -> Printf.printf "%s\n" l; iloop()
-	  | [] -> Printf.printf "\n"
+	  | ["file";_] -> Printf.fprintf o "%s\n" l; iloop()
+	  | [] -> Printf.fprintf o "\n"
 	  | _ -> failwith ("bad line: "^l) in
 	iloop()
-    | [x] -> Printf.printf "%s\n" x
+    | [x] -> Printf.fprintf o "%s\n" x
     | _ -> failwith "bad line2");
     loop() in
   try loop() with End_of_file -> ()
 
-let _ =
-  let file = Array.get Sys.argv 1 in
+let gfc file ofile =
   let i = open_in file in
-  parse i;
-  close_in i
+  let o = open_out ofile in
+  parse i o;
+  close_in i;
+  close_out o
 

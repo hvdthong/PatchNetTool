@@ -137,9 +137,13 @@ let print_output res txt infos logtbl =
   close_out o
 
 let commit_list = ref ""
+let output_prefix = ref ""
+let tmpdir = ref "/tmp"
 
 let options =
-  ["--commit-list", Arg.Set_string commit_list,
+  ["-o", Arg.Set_string output_prefix,
+    "  prefix of the output file";
+    "--commit-list", Arg.Set_string commit_list,
     "  list of labelled commits";
     "--git", Arg.Set_string Lcommon.linux,
     "  location of git tree";
@@ -148,13 +152,16 @@ let options =
     "  same number of commits with true and false labls";
     "--keep-ifdefs", Arg.Clear Decomment.drop_ifdefs,
     "  keep ifdefs, for backward compatability";
+    "--tmpdir", Arg.Set_string tmpdir,
+    "  temporary directory";
   ]
 let anonymous s = failwith "no anonymous arguments"
 let usage = ""
 
 let _ =
   Arg.parse (Arg.align options) anonymous usage;
-  let _ = Sys.command "mkdir -p /run/shm/tmp" in
+  (if !output_prefix = "" then failwith "-o <output file prefix> required");
+  let _ = Sys.command (Printf.sprintf "mkdir -p %s/tmp" !tmpdir) in
   let infos = Patch.get_commits !commit_list in
   let infos =
     List.fold_left
@@ -242,8 +249,10 @@ let _ =
 	Some logtbl
       end
     else None in
-  print_output "newres.out" (Some "newtxt.out") infos logtbl;
-  let o = open_out "newres.dict" in
+  let tmp = !output_prefix^".tmp" in
+  print_output tmp None (*(Some "newtxt.out")*) infos logtbl;
+  let o = open_out (!output_prefix^".dict") in
   Lexer_c.print_dictionary o;
-  close_out o
+  close_out o;
+  Get_function_calls.gfc tmp (!output_prefix^".out")
 
