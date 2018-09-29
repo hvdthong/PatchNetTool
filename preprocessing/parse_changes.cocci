@@ -865,7 +865,7 @@ then
   end
 
 @str@
-position pi : script:ocaml() { dsubrelevant(9,pi,false) };
+position pi : script:ocaml() { subrelevant(9,pi,false) };
 position ps;
 identifier s;
 field f;

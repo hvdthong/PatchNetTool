@@ -79,7 +79,6 @@ let do_decomment i o =
   try outloop() with End_of_file -> ()
 
 let decomment file dest =
-  Printf.eprintf "decommenting: %s\n" file; flush stderr;
   let i = open_in file in
   let o = open_out dest in
   do_decomment i o;

@@ -360,7 +360,6 @@ let getone (commit,files) =
 	Sys.command
 	  (Printf.sprintf "cd %s; git show %s:%s > %s"
 	     !C.linux commit file atmp) in
-      Printf.eprintf "starting decomment\n"; flush stderr;
       Decomment.decomment btmp dbtmp;
       Decomment.decomment atmp datmp;
       (if not !quiet then Printf.printf "FILE: %s\n" file);
@@ -432,7 +431,6 @@ let getone (commit,files) =
 	    if plus_info = []
 	    then []
 	    else runone commit "+" plus_info atmp in
-	  Printf.eprintf "after plus results\n"; flush stderr;
 	  let results = List.sort compare (minus_results@plus_results) in
 	  (if not !quiet
 	  then

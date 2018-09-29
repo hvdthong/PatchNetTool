@@ -47,7 +47,7 @@ let get_commits commit_file =
   let commits = C.cmd_to_list ("cat "^commit_file) in
   let pretty =
     Printf.sprintf
-      "--pretty=format:\"%%n%%H%%n%%an%%n%%ae%%n%%at%%n%%cn%%n%%ce%%n%%ct%%n%%s\"" in
+      "--pretty=format:\"%%H%%n%%an%%n%%ae%%n%%at%%n%%cn%%n%%ce%%n%%ct%%n%%s\"" in
   let fixed_args = "--numstat --diff-filter=M --no-merges" in
   let infos =
     List.map

@@ -48,7 +48,7 @@ let parse i o =
     let l = input_line i in
     (match Str.split (Str.regexp ":") l with
       "commit"::rest -> thecommit := l; Printf.fprintf o "%s\n" l
-    | ("stable"|"author"|"committer"|"commit_date"|"author_date")::
+    | ("label"|"author"|"committer"|"commit_date"|"author_date")::
       rest -> Printf.fprintf o "%s\n" l
     | [("commit message"|"simplified commit message")] ->
 	Printf.fprintf o "%s\n" l;
