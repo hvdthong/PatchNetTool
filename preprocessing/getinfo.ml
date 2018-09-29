@@ -194,7 +194,7 @@ let _ =
 	   [] infos)
     else
       Parmap.parfold ~ncores:(!C.cores) ~chunksize:C.chunksize
-	~init:(fun id -> CD.me := id; Parmap.redirect ~path:prefix ~id) 
+	~init:(fun id -> CD.me := id; Parmap.redirect ~path:prefix ~id)
 	(fun ((commit,_,_,_,_,files) as x) rest ->
 	  Printf.eprintf "starting %s\n" commit; flush stderr;
 	  try
