@@ -38,6 +38,9 @@ This produces the files newres.tmp (intermediate file), newres.out
 For simplicity, the commit list requires labels for both training and
 production data, but for production data the labels are ignored.
 
+testdata in the current directory is a labelled list of commits.  These
+commits are found in the Linux kernel.
+
 ---------------------------------
 
 All code found in this directory or any subdirectory is covered by GPLv2,
