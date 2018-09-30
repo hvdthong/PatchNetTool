@@ -54,6 +54,10 @@ let get_commits commit_file =
       (function c ->
 	match Str.split (Str.regexp ": ") c with
 	  [commit;label] ->
+	    let commit = String.trim commit in
+	    let label = String.trim label in
+	    (if not (List.mem label ["true";"false"])
+	    then failwith ("bad label: "^label));
 	    (C.cmd_to_list
 	       (Printf.sprintf "cd %s; git log -n 1 %s %s %s -- \"*.[ch]\""
 		  !C.linux pretty fixed_args commit),
