@@ -31,7 +31,7 @@ def train_model(commits, params):
                 l2_reg_lambda=params.l2_reg_lambda,
                 num_classes=labels.shape[1],
                 hidden_units=params.hidden_units)
-            model.build_graph(model=params.model_type)
+            model.build_graph(model=params.data_type)
 
             # Define Training procedure
             global_step = tf.Variable(0, name="global_step", trainable=False)
@@ -40,7 +40,8 @@ def train_model(commits, params):
             train_op = optimizer.apply_gradients(grads_and_vars, global_step=global_step)
 
             # Define Output model
-            out_dir = os.path.abspath(os.path.join(os.path.curdir, 'model', params.model))
+            # out_dir = os.path.abspath(os.path.join(os.path.curdir, 'model', params.model))
+            out_dir = os.path.abspath(os.path.join(os.path.curdir, params.model))
             print("Writing to {}\n".format(out_dir))
             write_dict_file(path_file=out_dir + '/dict_msg.txt', dictionary=dict_msg)
             write_dict_file(path_file=out_dir + '/dict_code.txt', dictionary=dict_code)
@@ -55,7 +56,8 @@ def train_model(commits, params):
             train_summary_writer = tf.summary.FileWriter(train_summary_dir, sess.graph)
 
             # Checkpoint directory. Tensorflow assumes this directory already exists so we need to create it
-            checkpoint_dir = os.path.abspath(os.path.join(out_dir, "checkpoints"))
+            # checkpoint_dir = os.path.abspath(os.path.join(out_dir, "checkpoints"))
+            checkpoint_dir = os.path.abspath(os.path.join(out_dir))
             checkpoint_prefix = os.path.join(checkpoint_dir, params.model)
             print "Checkpoints directory of our model %s" % (checkpoint_prefix)
 
@@ -97,5 +99,6 @@ def train_model(commits, params):
                 train_step(input_msg, input_added_code, input_removed_code, input_labels)
                 current_step = tf.train.global_step(sess, global_step)
 
-            path = saver.save(sess, checkpoint_prefix, global_step=current_step)
-            print "Saved model checkpoint at epoch %i to {}\n".format(path) % i
+            path_curr = saver.save(sess, checkpoint_prefix, global_step=current_step)
+            path = saver.save(sess, checkpoint_prefix)
+            print "Saved model checkpoint at epoch %i to {}\n".format(path_curr) % i
