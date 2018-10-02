@@ -11,7 +11,7 @@ def train_model(commits, params):
         padding_commit(commits=commits, params=params)
     print 'Dictionary of commit message has size: %i' % (len(dict_msg))
     print 'Dictionary of commit code has size: %i' % (len(dict_code))
-    print pad_msg.shape, pad_added_code.shape, pad_removed_code.shape, labels.shape
+    # print pad_msg.shape, pad_added_code.shape, pad_removed_code.shape, labels.shape
 
     with tf.Graph().as_default():
         session_conf = tf.ConfigProto(allow_soft_placement=params.allow_soft_placement,
