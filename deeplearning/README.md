@@ -19,7 +19,7 @@ Please install the neccessary libraries before running our tool:
 Dataset details
 ----------------
 
-* The dataset is put in the folder ./data containing 82,403 patches. 
+* The dataset is put in the folder ./data, namely "newres_funcalls_jul28.out", containing 82,403 patches. 
 
 
 Hyperparameters:
