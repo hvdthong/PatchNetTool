@@ -58,3 +58,5 @@ git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
 
 All code found in this directory or any subdirectory is covered by GPLv2,
 as described in license.txt.
+The source code of PatchNet is available at
+https://github.com/hvdthong/PatchNetTool
