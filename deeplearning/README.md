@@ -7,42 +7,22 @@ First time setup
 ----------------
 Please install the neccessary libraries before running our tool:
    
-- python 2.7
+- python 2.7 (https://www.anaconda.com/download/#linux)
 
 - tensorflow 1.4.1 (https://www.tensorflow.org)
 
-- numpy 1.14.3
+- numpy 1.14.3 (https://www.numpy.org)
 
-- scikit-learn 0.19.1
+- scikit-learn 0.19.1 (https://scikit-learn.org/stable/)
 
 
 Dataset details
 ----------------
 
-* The dataset is put in the folder ./data. 
+* The dataset is put in the folder ./data containing 82,403 patches. 
 
 
-Example running 
-----------------
-
-* Please run test_NetML.py to get used to NetML model. We see that the loss value descrease which means that our loss function converges. 
-
-Input data
-----------------
-
-* All the bug reports for each project.
-* All the methods for each project.
-* Features for each pair of bug report-method, the features mention whether a relationship between the bug report and method. 
-* Label data
-
-* Please take a look at folder ./data_example to see the input of our framework: 
-
-	* bug_list.txt: all the bug reports 
-	* method_list.txt: all the methods 
-	* features.txt: features for each pair of bug-method
-	* groundtruth.txt: label data
-	
-Parameters:
+Hyperparameters:
 ----------------
 We have five different parameters:
 
