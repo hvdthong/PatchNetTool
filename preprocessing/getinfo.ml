@@ -151,6 +151,8 @@ let options =
     "  prefix of the output file";
     "--commit-list", Arg.Set_string commit_list,
     "  list of labelled commits";
+    "--commit_list", Arg.Set_string commit_list,
+    "  list of labelled commits (alternative argument)";
     "--git", Arg.Set_string Lcommon.linux,
     "  location of git tree";
     "--nolog", Arg.Clear words, "  exclude commit log message";
