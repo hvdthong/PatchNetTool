@@ -45,6 +45,8 @@ the number of cores to use.
 
 This produces the files <prefix>.tmp (intermediate file), <prefix>.out
 (representation of commits) and <prefix>.dict (dictionary for the commits).
+Only <prefix>.out has to be provided to the deep learning process via the
+--data command line argument.
 
 For simplicity, the commit list requires labels for both training and
 production data, but for production data the labels are ignored.
