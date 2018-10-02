@@ -23,8 +23,8 @@ def predict_model(commits, params):
     pad_msg, pad_added_code, pad_removed_code, labels = padding_pred_commit(commits=commits,
                                                                             params=params, dict_msg=dict_msg,
                                                                             dict_code=dict_code)
-    print pad_msg.shape, pad_added_code.shape, pad_removed_code.shape, labels.shape
-    checkpoint_dir = path_dict + '/checkpoints'
+    # print pad_msg.shape, pad_added_code.shape, pad_removed_code.shape, labels.shape
+    checkpoint_dir = path_dict
     checkpoint_file = tf.train.latest_checkpoint(checkpoint_dir)
     graph = tf.Graph()
     with graph.as_default():
