@@ -1,7 +1,7 @@
 # PatchNet: A Tool for Deep Patch Classfication
 The figure belows illustrate our tool:
 
-![Propose model for the NetML](./doc/framework.png)
+![The overral design of PatchNet](./figures/overral_design.JPG)
 
 First time setup
 ----------------
