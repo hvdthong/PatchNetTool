@@ -1,3 +1,10 @@
+(*
+ * This file is part of PatchNet, licensed under the terms of the GPL v2.
+ * See copyright.txt in the PatchNet source code for more information.
+ * The PatchNet source code can be obtained at
+ * https://github.com/hvdthong/PatchNetTool
+ *)
+
 (* This is rather a hack.  It works on existing newres.out files.  The
 dictionary information is hard coded.  A function call is assumed to be an
 identifier immediately followed by an open parenthesis.  It should not be

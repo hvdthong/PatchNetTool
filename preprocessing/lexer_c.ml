@@ -1,5 +1,12 @@
 # 1 "lexer_c.mll"
  
+(*
+ * This file is part of PatchNet, licensed under the terms of the GPL v2.
+ * See copyright.txt in the PatchNet source code for more information.
+ * The PatchNet source code can be obtained at
+ * https://github.com/hvdthong/PatchNetTool
+ *)
+
 (* Adapted from the lexer of Coccinelle, which has the following license: *)
 (* Yoann Padioleau
  *
@@ -355,7 +362,7 @@ let keyword_table = hash_of_list [
 
 
 
-# 359 "lexer_c.ml"
+# 366 "lexer_c.ml"
 let __ocaml_lex_tables = {
   Lexing.lex_base =
    "\000\000\149\255\150\255\081\000\160\000\171\255\172\255\178\255\
@@ -4274,459 +4281,459 @@ let rec token lexbuf =
 and __ocaml_lex_token_rec lexbuf __ocaml_lex_state =
   match Lexing.new_engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
-# 416 "lexer_c.mll"
+# 423 "lexer_c.mll"
       ( token lexbuf )
-# 4280 "lexer_c.ml"
+# 4287 "lexer_c.ml"
 
   | 1 ->
-# 418 "lexer_c.mll"
+# 425 "lexer_c.mll"
       ( failwith
 	  (Printf.sprintf "%s: comments should be removed" !current_commit) )
-# 4286 "lexer_c.ml"
+# 4293 "lexer_c.ml"
 
   | 2 ->
-# 427 "lexer_c.mll"
+# 434 "lexer_c.mll"
       ( failwith
 	  (Printf.sprintf "%s: comments should be removed" !current_commit) )
-# 4292 "lexer_c.ml"
+# 4299 "lexer_c.ml"
 
   | 3 ->
-# 466 "lexer_c.mll"
+# 473 "lexer_c.mll"
       ( return TCppDirectiveOther "#ident" )
-# 4297 "lexer_c.ml"
+# 4304 "lexer_c.ml"
 
   | 4 ->
-# 468 "lexer_c.mll"
+# 475 "lexer_c.mll"
       ( return TCppDirectiveOther "#line" )
-# 4302 "lexer_c.ml"
+# 4309 "lexer_c.ml"
 
   | 5 ->
-# 470 "lexer_c.mll"
+# 477 "lexer_c.mll"
       ( return TCppDirectiveOther "#error" )
-# 4307 "lexer_c.ml"
+# 4314 "lexer_c.ml"
 
   | 6 ->
-# 472 "lexer_c.mll"
+# 479 "lexer_c.mll"
       ( return TCppDirectiveOther "#warning" )
-# 4312 "lexer_c.ml"
+# 4319 "lexer_c.ml"
 
   | 7 ->
-# 474 "lexer_c.mll"
+# 481 "lexer_c.mll"
       ( return TCppDirectiveOther "#abort" )
-# 4317 "lexer_c.ml"
+# 4324 "lexer_c.ml"
 
   | 8 ->
-# 477 "lexer_c.mll"
+# 484 "lexer_c.mll"
       ( return TCppDirectiveOther (tok lexbuf) )
-# 4322 "lexer_c.ml"
+# 4329 "lexer_c.ml"
 
   | 9 ->
-# 481 "lexer_c.mll"
+# 488 "lexer_c.mll"
       ( return TCppDirectiveOther (tok lexbuf) )
-# 4327 "lexer_c.ml"
+# 4334 "lexer_c.ml"
 
   | 10 ->
-# 492 "lexer_c.mll"
+# 499 "lexer_c.mll"
                              ( return TDefine "#define" )
-# 4332 "lexer_c.ml"
+# 4339 "lexer_c.ml"
 
   | 11 ->
-# 497 "lexer_c.mll"
+# 504 "lexer_c.mll"
                             ( return TUndef "#undef" )
-# 4337 "lexer_c.ml"
+# 4344 "lexer_c.ml"
 
   | 12 ->
-# 502 "lexer_c.mll"
+# 509 "lexer_c.mll"
                                ( return TPragma "#pragma" )
-# 4342 "lexer_c.ml"
+# 4349 "lexer_c.ml"
 
   | 13 ->
 let
-# 515 "lexer_c.mll"
-         filename
-# 4348 "lexer_c.ml"
-= Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_mem.(0) lexbuf.Lexing.lex_curr_pos in
-# 516 "lexer_c.mll"
-      ( return TInclude filename )
-# 4352 "lexer_c.ml"
-
-  | 14 ->
-let
 # 522 "lexer_c.mll"
          filename
-# 4358 "lexer_c.ml"
+# 4355 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_mem.(0) lexbuf.Lexing.lex_curr_pos in
 # 523 "lexer_c.mll"
       ( return TInclude filename )
-# 4362 "lexer_c.ml"
+# 4359 "lexer_c.ml"
+
+  | 14 ->
+let
+# 529 "lexer_c.mll"
+         filename
+# 4365 "lexer_c.ml"
+= Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_mem.(0) lexbuf.Lexing.lex_curr_pos in
+# 530 "lexer_c.mll"
+      ( return TInclude filename )
+# 4369 "lexer_c.ml"
 
   | 15 ->
-# 536 "lexer_c.mll"
+# 543 "lexer_c.mll"
       ( return TIfdef "TIfdefBool-false" )
-# 4367 "lexer_c.ml"
+# 4374 "lexer_c.ml"
 
   | 16 ->
-# 539 "lexer_c.mll"
+# 546 "lexer_c.mll"
       ( return TIfdef "TIfdefBool-true" )
-# 4372 "lexer_c.ml"
+# 4379 "lexer_c.ml"
 
   | 17 ->
-# 544 "lexer_c.mll"
+# 551 "lexer_c.mll"
       ( return TIfdef "TIfdefMisc-false" )
-# 4377 "lexer_c.ml"
+# 4384 "lexer_c.ml"
 
   | 18 ->
-# 549 "lexer_c.mll"
+# 556 "lexer_c.mll"
       ( return TIfdef "TIfdefMisc-false" )
-# 4382 "lexer_c.ml"
+# 4389 "lexer_c.ml"
 
   | 19 ->
-# 554 "lexer_c.mll"
+# 561 "lexer_c.mll"
       ( return TIfdef "TIfdefVersion-true" )
-# 4387 "lexer_c.ml"
+# 4394 "lexer_c.ml"
 
   | 20 ->
 let
-# 597 "lexer_c.mll"
+# 604 "lexer_c.mll"
                                            x
-# 4393 "lexer_c.ml"
+# 4400 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_mem.(0) lexbuf.Lexing.lex_mem.(1) in
-# 598 "lexer_c.mll"
+# 605 "lexer_c.mll"
       ( return TIfdef x )
-# 4397 "lexer_c.ml"
+# 4404 "lexer_c.ml"
 
   | 21 ->
 let
-# 600 "lexer_c.mll"
+# 607 "lexer_c.mll"
                                             x
-# 4403 "lexer_c.ml"
+# 4410 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_mem.(0) lexbuf.Lexing.lex_mem.(1) in
-# 601 "lexer_c.mll"
+# 608 "lexer_c.mll"
       ( return TIfndef x )
-# 4407 "lexer_c.ml"
+# 4414 "lexer_c.ml"
 
   | 22 ->
 let
-# 602 "lexer_c.mll"
+# 609 "lexer_c.mll"
                                                  str_guard
-# 4413 "lexer_c.ml"
+# 4420 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_mem.(0) lexbuf.Lexing.lex_curr_pos in
-# 603 "lexer_c.mll"
+# 610 "lexer_c.mll"
       ( return TIfdef str_guard )
-# 4417 "lexer_c.ml"
+# 4424 "lexer_c.ml"
 
   | 23 ->
 let
-# 604 "lexer_c.mll"
+# 611 "lexer_c.mll"
                                             str_guard
-# 4423 "lexer_c.ml"
+# 4430 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_mem.(0) lexbuf.Lexing.lex_curr_pos in
-# 605 "lexer_c.mll"
+# 612 "lexer_c.mll"
       ( return TIfdef str_guard )
-# 4427 "lexer_c.ml"
+# 4434 "lexer_c.ml"
 
   | 24 ->
 let
-# 606 "lexer_c.mll"
+# 613 "lexer_c.mll"
                                         str_guard
-# 4433 "lexer_c.ml"
+# 4440 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_mem.(0) lexbuf.Lexing.lex_curr_pos in
-# 607 "lexer_c.mll"
+# 614 "lexer_c.mll"
       ( return TIfdefelif str_guard )
-# 4437 "lexer_c.ml"
+# 4444 "lexer_c.ml"
 
   | 25 ->
-# 611 "lexer_c.mll"
+# 618 "lexer_c.mll"
       ( return TEndif "TEndif" )
-# 4442 "lexer_c.ml"
+# 4449 "lexer_c.ml"
 
   | 26 ->
-# 617 "lexer_c.mll"
+# 624 "lexer_c.mll"
       ( return TEndif "TEndif" )
-# 4447 "lexer_c.ml"
+# 4454 "lexer_c.ml"
 
   | 27 ->
-# 624 "lexer_c.mll"
+# 631 "lexer_c.mll"
       ( return  TIfdefelse "TIfdefelse" )
-# 4452 "lexer_c.ml"
+# 4459 "lexer_c.ml"
 
   | 28 ->
-# 634 "lexer_c.mll"
+# 641 "lexer_c.mll"
                          ( [] )
-# 4457 "lexer_c.ml"
+# 4464 "lexer_c.ml"
 
   | 29 ->
-# 664 "lexer_c.mll"
+# 671 "lexer_c.mll"
          ( return TCppConcatOp "TCppConcatOp" )
-# 4462 "lexer_c.ml"
+# 4469 "lexer_c.ml"
 
   | 30 ->
-# 671 "lexer_c.mll"
+# 678 "lexer_c.mll"
       ( return TIdent (tok lexbuf) )
-# 4467 "lexer_c.ml"
+# 4474 "lexer_c.ml"
 
   | 31 ->
 let
-# 673 "lexer_c.mll"
+# 680 "lexer_c.mll"
             s
-# 4473 "lexer_c.ml"
+# 4480 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos (lexbuf.Lexing.lex_curr_pos + -3) in
-# 674 "lexer_c.mll"
+# 681 "lexer_c.mll"
       ( return TDefParamVariadic s )
-# 4477 "lexer_c.ml"
+# 4484 "lexer_c.ml"
 
   | 32 ->
-# 695 "lexer_c.mll"
+# 702 "lexer_c.mll"
           ( return TOCro "[" )
-# 4482 "lexer_c.ml"
+# 4489 "lexer_c.ml"
 
   | 33 ->
-# 695 "lexer_c.mll"
+# 702 "lexer_c.mll"
                                        ( return TCCro "]" )
-# 4487 "lexer_c.ml"
+# 4494 "lexer_c.ml"
 
   | 34 ->
-# 696 "lexer_c.mll"
+# 703 "lexer_c.mll"
           ( return TOPar "(" )
-# 4492 "lexer_c.ml"
+# 4499 "lexer_c.ml"
 
   | 35 ->
-# 696 "lexer_c.mll"
+# 703 "lexer_c.mll"
                                        ( return TCPar ")" )
-# 4497 "lexer_c.ml"
+# 4504 "lexer_c.ml"
 
   | 36 ->
-# 697 "lexer_c.mll"
+# 704 "lexer_c.mll"
           ( return TOBrace "{" )
-# 4502 "lexer_c.ml"
+# 4509 "lexer_c.ml"
 
   | 37 ->
-# 697 "lexer_c.mll"
+# 704 "lexer_c.mll"
                                        ( return TCBrace "}" )
-# 4507 "lexer_c.ml"
+# 4514 "lexer_c.ml"
 
   | 38 ->
-# 699 "lexer_c.mll"
+# 706 "lexer_c.mll"
           ( return TOp "+" )
-# 4512 "lexer_c.ml"
+# 4519 "lexer_c.ml"
 
   | 39 ->
-# 699 "lexer_c.mll"
+# 706 "lexer_c.mll"
                                     ( return TOp "*" )
-# 4517 "lexer_c.ml"
+# 4524 "lexer_c.ml"
 
   | 40 ->
-# 700 "lexer_c.mll"
+# 707 "lexer_c.mll"
           ( return TOp "-" )
-# 4522 "lexer_c.ml"
+# 4529 "lexer_c.ml"
 
   | 41 ->
-# 700 "lexer_c.mll"
+# 707 "lexer_c.mll"
                                     ( return TOp "/" )
-# 4527 "lexer_c.ml"
+# 4534 "lexer_c.ml"
 
   | 42 ->
-# 701 "lexer_c.mll"
+# 708 "lexer_c.mll"
           ( return TOp "%" )
-# 4532 "lexer_c.ml"
+# 4539 "lexer_c.ml"
 
   | 43 ->
-# 703 "lexer_c.mll"
+# 710 "lexer_c.mll"
           ( return TIncDec "++" )
-# 4537 "lexer_c.ml"
+# 4544 "lexer_c.ml"
 
   | 44 ->
-# 703 "lexer_c.mll"
+# 710 "lexer_c.mll"
                                          ( return TIncDec "--" )
-# 4542 "lexer_c.ml"
+# 4549 "lexer_c.ml"
 
   | 45 ->
-# 705 "lexer_c.mll"
+# 712 "lexer_c.mll"
           ( return TAssign "=" )
-# 4547 "lexer_c.ml"
+# 4554 "lexer_c.ml"
 
   | 46 ->
-# 707 "lexer_c.mll"
+# 714 "lexer_c.mll"
           ( return TAssign "-=" )
-# 4552 "lexer_c.ml"
+# 4559 "lexer_c.ml"
 
   | 47 ->
-# 708 "lexer_c.mll"
+# 715 "lexer_c.mll"
           ( return TAssign "+=" )
-# 4557 "lexer_c.ml"
+# 4564 "lexer_c.ml"
 
   | 48 ->
-# 709 "lexer_c.mll"
+# 716 "lexer_c.mll"
           ( return TAssign "*=" )
-# 4562 "lexer_c.ml"
+# 4569 "lexer_c.ml"
 
   | 49 ->
-# 710 "lexer_c.mll"
+# 717 "lexer_c.mll"
           ( return TAssign "/=" )
-# 4567 "lexer_c.ml"
+# 4574 "lexer_c.ml"
 
   | 50 ->
-# 711 "lexer_c.mll"
+# 718 "lexer_c.mll"
           ( return TAssign "%=" )
-# 4572 "lexer_c.ml"
+# 4579 "lexer_c.ml"
 
   | 51 ->
-# 712 "lexer_c.mll"
+# 719 "lexer_c.mll"
           ( return TAssign "&=" )
-# 4577 "lexer_c.ml"
+# 4584 "lexer_c.ml"
 
   | 52 ->
-# 713 "lexer_c.mll"
+# 720 "lexer_c.mll"
           ( return TAssign "|=" )
-# 4582 "lexer_c.ml"
+# 4589 "lexer_c.ml"
 
   | 53 ->
-# 714 "lexer_c.mll"
+# 721 "lexer_c.mll"
           ( return TAssign "^=" )
-# 4587 "lexer_c.ml"
+# 4594 "lexer_c.ml"
 
   | 54 ->
-# 715 "lexer_c.mll"
+# 722 "lexer_c.mll"
           ( return TAssign "<<=" )
-# 4592 "lexer_c.ml"
+# 4599 "lexer_c.ml"
 
   | 55 ->
-# 716 "lexer_c.mll"
+# 723 "lexer_c.mll"
           ( return TAssign ">>=" )
-# 4597 "lexer_c.ml"
+# 4604 "lexer_c.ml"
 
   | 56 ->
-# 718 "lexer_c.mll"
+# 725 "lexer_c.mll"
          ( return TCompare "==" )
-# 4602 "lexer_c.ml"
+# 4609 "lexer_c.ml"
 
   | 57 ->
-# 718 "lexer_c.mll"
+# 725 "lexer_c.mll"
                                          ( return TCompare "!=" )
-# 4607 "lexer_c.ml"
+# 4614 "lexer_c.ml"
 
   | 58 ->
-# 719 "lexer_c.mll"
+# 726 "lexer_c.mll"
          ( return TCompare ">=" )
-# 4612 "lexer_c.ml"
+# 4619 "lexer_c.ml"
 
   | 59 ->
-# 719 "lexer_c.mll"
+# 726 "lexer_c.mll"
                                          ( return TCompare "<=" )
-# 4617 "lexer_c.ml"
+# 4624 "lexer_c.ml"
 
   | 60 ->
-# 720 "lexer_c.mll"
+# 727 "lexer_c.mll"
          ( return TCompare "<" )
-# 4622 "lexer_c.ml"
+# 4629 "lexer_c.ml"
 
   | 61 ->
-# 720 "lexer_c.mll"
+# 727 "lexer_c.mll"
                                          ( return TCompare ">" )
-# 4627 "lexer_c.ml"
+# 4634 "lexer_c.ml"
 
   | 62 ->
-# 722 "lexer_c.mll"
+# 729 "lexer_c.mll"
          ( return TBool "&&" )
-# 4632 "lexer_c.ml"
+# 4639 "lexer_c.ml"
 
   | 63 ->
-# 722 "lexer_c.mll"
+# 729 "lexer_c.mll"
                                          ( return TBool "||" )
-# 4637 "lexer_c.ml"
+# 4644 "lexer_c.ml"
 
   | 64 ->
-# 723 "lexer_c.mll"
+# 730 "lexer_c.mll"
          ( return TBit ">>" )
-# 4642 "lexer_c.ml"
+# 4649 "lexer_c.ml"
 
   | 65 ->
-# 723 "lexer_c.mll"
+# 730 "lexer_c.mll"
                                          ( return TBit "<<" )
-# 4647 "lexer_c.ml"
+# 4654 "lexer_c.ml"
 
   | 66 ->
-# 724 "lexer_c.mll"
+# 731 "lexer_c.mll"
          ( return TBit "&" )
-# 4652 "lexer_c.ml"
+# 4659 "lexer_c.ml"
 
   | 67 ->
-# 724 "lexer_c.mll"
+# 731 "lexer_c.mll"
                                          ( return TBit "|" )
-# 4657 "lexer_c.ml"
+# 4664 "lexer_c.ml"
 
   | 68 ->
-# 725 "lexer_c.mll"
+# 732 "lexer_c.mll"
          ( return TBit "^" )
-# 4662 "lexer_c.ml"
+# 4669 "lexer_c.ml"
 
   | 69 ->
-# 726 "lexer_c.mll"
+# 733 "lexer_c.mll"
           ( return TEllipsis "..." )
-# 4667 "lexer_c.ml"
+# 4674 "lexer_c.ml"
 
   | 70 ->
-# 727 "lexer_c.mll"
+# 734 "lexer_c.mll"
            ( return TPtrOp "->" )
-# 4672 "lexer_c.ml"
+# 4679 "lexer_c.ml"
 
   | 71 ->
-# 727 "lexer_c.mll"
+# 734 "lexer_c.mll"
                                           ( return TDot "." )
-# 4677 "lexer_c.ml"
+# 4684 "lexer_c.ml"
 
   | 72 ->
-# 728 "lexer_c.mll"
+# 735 "lexer_c.mll"
            ( return TComma "comma" )
-# 4682 "lexer_c.ml"
+# 4689 "lexer_c.ml"
 
   | 73 ->
-# 729 "lexer_c.mll"
+# 736 "lexer_c.mll"
            ( return TPtVirg ";" )
-# 4687 "lexer_c.ml"
+# 4694 "lexer_c.ml"
 
   | 74 ->
-# 730 "lexer_c.mll"
+# 737 "lexer_c.mll"
            ( return TWhy "?" )
-# 4692 "lexer_c.ml"
+# 4699 "lexer_c.ml"
 
   | 75 ->
-# 730 "lexer_c.mll"
+# 737 "lexer_c.mll"
                                           ( return TDotDot ":" )
-# 4697 "lexer_c.ml"
+# 4704 "lexer_c.ml"
 
   | 76 ->
-# 731 "lexer_c.mll"
+# 738 "lexer_c.mll"
            ( return TBang "!" )
-# 4702 "lexer_c.ml"
+# 4709 "lexer_c.ml"
 
   | 77 ->
-# 731 "lexer_c.mll"
+# 738 "lexer_c.mll"
                                           ( return TTilde "~" )
-# 4707 "lexer_c.ml"
+# 4714 "lexer_c.ml"
 
   | 78 ->
-# 733 "lexer_c.mll"
+# 740 "lexer_c.mll"
          ( return TOCro "[" )
-# 4712 "lexer_c.ml"
+# 4719 "lexer_c.ml"
 
   | 79 ->
-# 733 "lexer_c.mll"
+# 740 "lexer_c.mll"
                                        ( return TCCro "]" )
-# 4717 "lexer_c.ml"
+# 4724 "lexer_c.ml"
 
   | 80 ->
-# 734 "lexer_c.mll"
+# 741 "lexer_c.mll"
          ( return TOBrace "{" )
-# 4722 "lexer_c.ml"
+# 4729 "lexer_c.ml"
 
   | 81 ->
-# 734 "lexer_c.mll"
+# 741 "lexer_c.mll"
                                        ( return TCBrace "}" )
-# 4727 "lexer_c.ml"
+# 4734 "lexer_c.ml"
 
   | 82 ->
-# 747 "lexer_c.mll"
+# 754 "lexer_c.mll"
       ( let s = tok lexbuf in
         let tok =
 	  try Some(Hashtbl.find keyword_table s)
@@ -4747,294 +4754,294 @@ let
 
 	| None -> return TIdent s
       )
-# 4751 "lexer_c.ml"
+# 4758 "lexer_c.ml"
 
   | 83 ->
-# 773 "lexer_c.mll"
+# 780 "lexer_c.mll"
       ( let s = char lexbuf   in
         return TChar s
       )
-# 4758 "lexer_c.ml"
+# 4765 "lexer_c.ml"
 
   | 84 ->
-# 777 "lexer_c.mll"
+# 784 "lexer_c.mll"
       ( let s = string lexbuf in
         return TString
 	(Printf.sprintf "\"%s\"" (* undo if we change back to a number rep *)
 	   (String.concat "" (Str.split (Str.regexp ",") s)))
-      )
-# 4767 "lexer_c.ml"
-
-  | 85 ->
-# 784 "lexer_c.mll"
-      ( let s = char lexbuf   in
-        return TChar s
       )
 # 4774 "lexer_c.ml"
 
+  | 85 ->
+# 791 "lexer_c.mll"
+      ( let s = char lexbuf   in
+        return TChar s
+      )
+# 4781 "lexer_c.ml"
+
   | 86 ->
-# 788 "lexer_c.mll"
+# 795 "lexer_c.mll"
       ( let s = string lexbuf in
         return TString
 	(Printf.sprintf "\"%s\"" (* undo if we change back to a number rep *)
 	   (String.concat "" (Str.split (Str.regexp ",") s)))
       )
-# 4783 "lexer_c.ml"
+# 4790 "lexer_c.ml"
 
   | 87 ->
 let
-# 800 "lexer_c.mll"
+# 807 "lexer_c.mll"
                x
-# 4789 "lexer_c.ml"
+# 4796 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 801 "lexer_c.mll"
+# 808 "lexer_c.mll"
       ( return TInt (getnum x []) )
-# 4793 "lexer_c.ml"
+# 4800 "lexer_c.ml"
 
   | 88 ->
 let
-# 802 "lexer_c.mll"
+# 809 "lexer_c.mll"
             x
-# 4799 "lexer_c.ml"
+# 4806 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 803 "lexer_c.mll"
+# 810 "lexer_c.mll"
       ( return TInt (getnum x []) )
-# 4803 "lexer_c.ml"
+# 4810 "lexer_c.ml"
 
   | 89 ->
 let
-# 804 "lexer_c.mll"
+# 811 "lexer_c.mll"
              x
-# 4809 "lexer_c.ml"
+# 4816 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 805 "lexer_c.mll"
+# 812 "lexer_c.mll"
       ( return TInt (getnum x []) )
-# 4813 "lexer_c.ml"
+# 4820 "lexer_c.ml"
 
   | 90 ->
 let
-# 806 "lexer_c.mll"
+# 813 "lexer_c.mll"
                 x
-# 4819 "lexer_c.ml"
+# 4826 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos (lexbuf.Lexing.lex_curr_pos + -1)
 and
-# 806 "lexer_c.mll"
+# 813 "lexer_c.mll"
                                  y
-# 4824 "lexer_c.ml"
+# 4831 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf (lexbuf.Lexing.lex_curr_pos + -1) in
-# 807 "lexer_c.mll"
+# 814 "lexer_c.mll"
       ( return TInt (getnum x [y]) )
-# 4828 "lexer_c.ml"
+# 4835 "lexer_c.ml"
 
   | 91 ->
 let
-# 808 "lexer_c.mll"
+# 815 "lexer_c.mll"
              x
-# 4834 "lexer_c.ml"
+# 4841 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos (lexbuf.Lexing.lex_curr_pos + -1)
 and
-# 808 "lexer_c.mll"
+# 815 "lexer_c.mll"
                               y
-# 4839 "lexer_c.ml"
+# 4846 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf (lexbuf.Lexing.lex_curr_pos + -1) in
-# 809 "lexer_c.mll"
+# 816 "lexer_c.mll"
       ( return TInt (getnum x [y]) )
-# 4843 "lexer_c.ml"
+# 4850 "lexer_c.ml"
 
   | 92 ->
 let
-# 810 "lexer_c.mll"
+# 817 "lexer_c.mll"
               x
-# 4849 "lexer_c.ml"
+# 4856 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos (lexbuf.Lexing.lex_curr_pos + -1)
 and
-# 810 "lexer_c.mll"
+# 817 "lexer_c.mll"
                                y
-# 4854 "lexer_c.ml"
+# 4861 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf (lexbuf.Lexing.lex_curr_pos + -1) in
-# 811 "lexer_c.mll"
+# 818 "lexer_c.mll"
       ( return TInt (getnum x [y]) )
-# 4858 "lexer_c.ml"
+# 4865 "lexer_c.ml"
 
   | 93 ->
 let
-# 812 "lexer_c.mll"
+# 819 "lexer_c.mll"
                 x
-# 4864 "lexer_c.ml"
+# 4871 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos (lexbuf.Lexing.lex_curr_pos + -1)
 and
-# 812 "lexer_c.mll"
+# 819 "lexer_c.mll"
                                  y
-# 4869 "lexer_c.ml"
+# 4876 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf (lexbuf.Lexing.lex_curr_pos + -1) in
-# 813 "lexer_c.mll"
+# 820 "lexer_c.mll"
       ( return TInt (getnum x [y]) )
-# 4873 "lexer_c.ml"
+# 4880 "lexer_c.ml"
 
   | 94 ->
 let
-# 814 "lexer_c.mll"
+# 821 "lexer_c.mll"
              x
-# 4879 "lexer_c.ml"
+# 4886 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos (lexbuf.Lexing.lex_curr_pos + -1)
 and
-# 814 "lexer_c.mll"
+# 821 "lexer_c.mll"
                               y
-# 4884 "lexer_c.ml"
+# 4891 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf (lexbuf.Lexing.lex_curr_pos + -1) in
-# 815 "lexer_c.mll"
+# 822 "lexer_c.mll"
       ( return TInt (getnum x [y]) )
-# 4888 "lexer_c.ml"
+# 4895 "lexer_c.ml"
 
   | 95 ->
 let
-# 816 "lexer_c.mll"
+# 823 "lexer_c.mll"
               x
-# 4894 "lexer_c.ml"
+# 4901 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos (lexbuf.Lexing.lex_curr_pos + -1)
 and
-# 816 "lexer_c.mll"
+# 823 "lexer_c.mll"
                                y
-# 4899 "lexer_c.ml"
+# 4906 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf (lexbuf.Lexing.lex_curr_pos + -1) in
-# 817 "lexer_c.mll"
+# 824 "lexer_c.mll"
       ( return TInt (getnum x [y]) )
-# 4903 "lexer_c.ml"
+# 4910 "lexer_c.ml"
 
   | 96 ->
 let
-# 818 "lexer_c.mll"
+# 825 "lexer_c.mll"
                                   x
-# 4909 "lexer_c.ml"
+# 4916 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_mem.(1) lexbuf.Lexing.lex_mem.(0)
 and
-# 818 "lexer_c.mll"
+# 825 "lexer_c.mll"
                                                    y1
-# 4914 "lexer_c.ml"
+# 4921 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf lexbuf.Lexing.lex_mem.(2)
 and
-# 818 "lexer_c.mll"
+# 825 "lexer_c.mll"
                                                                      y2
-# 4919 "lexer_c.ml"
+# 4926 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf lexbuf.Lexing.lex_mem.(3) in
-# 820 "lexer_c.mll"
+# 827 "lexer_c.mll"
       ( return TInt (getnum x [y1;y2]) )
-# 4923 "lexer_c.ml"
+# 4930 "lexer_c.ml"
 
   | 97 ->
 let
-# 821 "lexer_c.mll"
+# 828 "lexer_c.mll"
                                   x
-# 4929 "lexer_c.ml"
+# 4936 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos (lexbuf.Lexing.lex_curr_pos + -2)
 and
-# 821 "lexer_c.mll"
+# 828 "lexer_c.mll"
                                                    y1
-# 4934 "lexer_c.ml"
+# 4941 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf (lexbuf.Lexing.lex_curr_pos + -2)
 and
-# 821 "lexer_c.mll"
+# 828 "lexer_c.mll"
                                                                      y2
-# 4939 "lexer_c.ml"
+# 4946 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf (lexbuf.Lexing.lex_curr_pos + -1) in
-# 822 "lexer_c.mll"
+# 829 "lexer_c.mll"
       ( return TInt (getnum x [y1;y2]) )
-# 4943 "lexer_c.ml"
+# 4950 "lexer_c.ml"
 
   | 98 ->
 let
-# 823 "lexer_c.mll"
+# 830 "lexer_c.mll"
                                   x
-# 4949 "lexer_c.ml"
+# 4956 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos (lexbuf.Lexing.lex_curr_pos + -3)
 and
-# 823 "lexer_c.mll"
+# 830 "lexer_c.mll"
                                                    y1
-# 4954 "lexer_c.ml"
+# 4961 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf (lexbuf.Lexing.lex_curr_pos + -3)
 and
-# 823 "lexer_c.mll"
+# 830 "lexer_c.mll"
                                                                      y2
-# 4959 "lexer_c.ml"
+# 4966 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf (lexbuf.Lexing.lex_curr_pos + -2)
 and
-# 824 "lexer_c.mll"
+# 831 "lexer_c.mll"
                     y3
-# 4964 "lexer_c.ml"
+# 4971 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf (lexbuf.Lexing.lex_curr_pos + -1) in
-# 825 "lexer_c.mll"
+# 832 "lexer_c.mll"
       ( return TInt (getnum x [y1;y2;y3]) )
-# 4968 "lexer_c.ml"
+# 4975 "lexer_c.ml"
 
   | 99 ->
 let
-# 826 "lexer_c.mll"
+# 833 "lexer_c.mll"
                         x
-# 4974 "lexer_c.ml"
+# 4981 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 826 "lexer_c.mll"
+# 833 "lexer_c.mll"
                           ( return TFloat x )
-# 4978 "lexer_c.ml"
+# 4985 "lexer_c.ml"
 
   | 100 ->
 let
-# 827 "lexer_c.mll"
+# 834 "lexer_c.mll"
                         x
-# 4984 "lexer_c.ml"
+# 4991 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 827 "lexer_c.mll"
+# 834 "lexer_c.mll"
                           ( return TFloat x )
-# 4988 "lexer_c.ml"
+# 4995 "lexer_c.ml"
 
   | 101 ->
 let
-# 828 "lexer_c.mll"
+# 835 "lexer_c.mll"
              x
-# 4994 "lexer_c.ml"
+# 5001 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 828 "lexer_c.mll"
+# 835 "lexer_c.mll"
                           ( return TFloat x )
-# 4998 "lexer_c.ml"
-
-  | 102 ->
-# 831 "lexer_c.mll"
-      ( Printf.eprintf "LEXER: %s %s\n" (error_radix "octal") (tok lexbuf);
-        return TUnknown "TUnknown"
-      )
 # 5005 "lexer_c.ml"
 
-  | 103 ->
-# 835 "lexer_c.mll"
-      ( Printf.eprintf "LEXER: %s %s\n" (error_radix "hexa") (tok lexbuf);
+  | 102 ->
+# 838 "lexer_c.mll"
+      ( Printf.eprintf "LEXER: %s %s\n" (error_radix "octal") (tok lexbuf);
         return TUnknown "TUnknown"
       )
 # 5012 "lexer_c.ml"
 
+  | 103 ->
+# 842 "lexer_c.mll"
+      ( Printf.eprintf "LEXER: %s %s\n" (error_radix "hexa") (tok lexbuf);
+        return TUnknown "TUnknown"
+      )
+# 5019 "lexer_c.ml"
+
   | 104 ->
-# 844 "lexer_c.mll"
+# 851 "lexer_c.mll"
       ( Printf.eprintf
 	  "%s: LEXER: ZARB integer_string, certainly a macro: %s\n"
 	  !current_commit (tok lexbuf);
         return TIdent (tok lexbuf)
       )
-# 5021 "lexer_c.ml"
+# 5028 "lexer_c.ml"
 
   | 105 ->
-# 858 "lexer_c.mll"
+# 865 "lexer_c.mll"
         ( [("-1"); ("-1")] )
-# 5026 "lexer_c.ml"
+# 5033 "lexer_c.ml"
 
   | 106 ->
 let
-# 860 "lexer_c.mll"
+# 867 "lexer_c.mll"
           x
-# 5032 "lexer_c.ml"
+# 5039 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf lexbuf.Lexing.lex_start_pos in
-# 861 "lexer_c.mll"
+# 868 "lexer_c.mll"
       (
         return TUnknown ("TUnknown-"^String.make 1 x)
       )
-# 5038 "lexer_c.ml"
+# 5045 "lexer_c.ml"
 
   | __ocaml_lex_state -> lexbuf.Lexing.refill_buff lexbuf;
       __ocaml_lex_token_rec lexbuf __ocaml_lex_state
@@ -5044,52 +5051,52 @@ and char lexbuf =
 and __ocaml_lex_char_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
-# 869 "lexer_c.mll"
+# 876 "lexer_c.mll"
                                        ( "" )
-# 5050 "lexer_c.ml"
+# 5057 "lexer_c.ml"
 
   | 1 ->
 let
-# 870 "lexer_c.mll"
+# 877 "lexer_c.mll"
           x
-# 5056 "lexer_c.ml"
+# 5063 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf lexbuf.Lexing.lex_start_pos in
-# 870 "lexer_c.mll"
+# 877 "lexer_c.mll"
                                        ( String.make 1 x ^ restchars lexbuf )
-# 5060 "lexer_c.ml"
+# 5067 "lexer_c.ml"
 
   | 2 ->
 let
-# 872 "lexer_c.mll"
+# 879 "lexer_c.mll"
                                              x
-# 5066 "lexer_c.ml"
+# 5073 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 872 "lexer_c.mll"
+# 879 "lexer_c.mll"
                                                      ( x ^ restchars lexbuf )
-# 5070 "lexer_c.ml"
+# 5077 "lexer_c.ml"
 
   | 3 ->
 let
-# 876 "lexer_c.mll"
+# 883 "lexer_c.mll"
                                   x
-# 5076 "lexer_c.ml"
+# 5083 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 876 "lexer_c.mll"
+# 883 "lexer_c.mll"
                                                      ( x ^ restchars lexbuf )
-# 5080 "lexer_c.ml"
+# 5087 "lexer_c.ml"
 
   | 4 ->
 let
-# 877 "lexer_c.mll"
+# 884 "lexer_c.mll"
                  v
-# 5086 "lexer_c.ml"
+# 5093 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf (lexbuf.Lexing.lex_start_pos + 1)
 and
-# 877 "lexer_c.mll"
+# 884 "lexer_c.mll"
                                   x
-# 5091 "lexer_c.ml"
+# 5098 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos (lexbuf.Lexing.lex_start_pos + 2) in
-# 878 "lexer_c.mll"
+# 885 "lexer_c.mll"
  (
           (match v with (* Machine specific ? *)
           | 'n' -> ()  | 't' -> ()   | 'v' -> ()  | 'b' -> () | 'r' -> ()
@@ -5102,14 +5109,14 @@ and
 	  );
           x ^ restchars lexbuf
 	)
-# 5106 "lexer_c.ml"
+# 5113 "lexer_c.ml"
 
   | 5 ->
-# 891 "lexer_c.mll"
+# 898 "lexer_c.mll"
       ( Printf.eprintf "LEXER: unrecognised symbol in char: %s\n" (tok lexbuf);
         tok lexbuf ^ restchars lexbuf
       )
-# 5113 "lexer_c.ml"
+# 5120 "lexer_c.ml"
 
   | __ocaml_lex_state -> lexbuf.Lexing.refill_buff lexbuf;
       __ocaml_lex_char_rec lexbuf __ocaml_lex_state
@@ -5119,59 +5126,59 @@ and restchars lexbuf =
 and __ocaml_lex_restchars_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
-# 896 "lexer_c.mll"
+# 903 "lexer_c.mll"
                                        ( "" )
-# 5125 "lexer_c.ml"
+# 5132 "lexer_c.ml"
 
   | 1 ->
-# 898 "lexer_c.mll"
+# 905 "lexer_c.mll"
       ( Printf.eprintf "%s: LEXER: newline not expected in character\n"
 	  !current_commit;
         tok lexbuf )
-# 5132 "lexer_c.ml"
+# 5139 "lexer_c.ml"
 
   | 2 ->
 let
-# 901 "lexer_c.mll"
+# 908 "lexer_c.mll"
           x
-# 5138 "lexer_c.ml"
+# 5145 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf lexbuf.Lexing.lex_start_pos in
-# 901 "lexer_c.mll"
+# 908 "lexer_c.mll"
                                        ( String.make 1 x ^ restchars lexbuf )
-# 5142 "lexer_c.ml"
+# 5149 "lexer_c.ml"
 
   | 3 ->
 let
-# 903 "lexer_c.mll"
+# 910 "lexer_c.mll"
                                              x
-# 5148 "lexer_c.ml"
+# 5155 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 903 "lexer_c.mll"
+# 910 "lexer_c.mll"
                                                      ( x ^ restchars lexbuf )
-# 5152 "lexer_c.ml"
+# 5159 "lexer_c.ml"
 
   | 4 ->
 let
-# 907 "lexer_c.mll"
+# 914 "lexer_c.mll"
                                   x
-# 5158 "lexer_c.ml"
+# 5165 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 907 "lexer_c.mll"
+# 914 "lexer_c.mll"
                                                      ( x ^ restchars lexbuf )
-# 5162 "lexer_c.ml"
+# 5169 "lexer_c.ml"
 
   | 5 ->
 let
-# 908 "lexer_c.mll"
+# 915 "lexer_c.mll"
                  v
-# 5168 "lexer_c.ml"
+# 5175 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf (lexbuf.Lexing.lex_start_pos + 1)
 and
-# 908 "lexer_c.mll"
+# 915 "lexer_c.mll"
                                   x
-# 5173 "lexer_c.ml"
+# 5180 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos (lexbuf.Lexing.lex_start_pos + 2) in
-# 909 "lexer_c.mll"
+# 916 "lexer_c.mll"
  (
           (match v with (* Machine specific ? *)
           | 'n' -> ()  | 't' -> ()   | 'v' -> ()  | 'b' -> () | 'r' -> ()
@@ -5184,14 +5191,14 @@ and
 	  );
           x ^ restchars lexbuf
 	)
-# 5188 "lexer_c.ml"
+# 5195 "lexer_c.ml"
 
   | 6 ->
-# 922 "lexer_c.mll"
+# 929 "lexer_c.mll"
       ( Printf.eprintf "LEXER: unrecognised symbol in char: %s\n" (tok lexbuf);
         tok lexbuf ^ restchars lexbuf
       )
-# 5195 "lexer_c.ml"
+# 5202 "lexer_c.ml"
 
   | __ocaml_lex_state -> lexbuf.Lexing.refill_buff lexbuf;
       __ocaml_lex_restchars_rec lexbuf __ocaml_lex_state
@@ -5201,62 +5208,62 @@ and string lexbuf =
 and __ocaml_lex_string_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
-# 931 "lexer_c.mll"
+# 938 "lexer_c.mll"
                                               ( "" )
-# 5207 "lexer_c.ml"
+# 5214 "lexer_c.ml"
 
   | 1 ->
-# 932 "lexer_c.mll"
+# 939 "lexer_c.mll"
                                               ( " " ^ string lexbuf )
-# 5212 "lexer_c.ml"
+# 5219 "lexer_c.ml"
 
   | 2 ->
-# 933 "lexer_c.mll"
+# 940 "lexer_c.mll"
                                               ( "\t" ^ string lexbuf )
-# 5217 "lexer_c.ml"
+# 5224 "lexer_c.ml"
 
   | 3 ->
 let
-# 934 "lexer_c.mll"
+# 941 "lexer_c.mll"
           x
-# 5223 "lexer_c.ml"
+# 5230 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf lexbuf.Lexing.lex_start_pos in
-# 934 "lexer_c.mll"
+# 941 "lexer_c.mll"
                                               ( String.make 1 x^string lexbuf)
-# 5227 "lexer_c.ml"
+# 5234 "lexer_c.ml"
 
   | 4 ->
 let
-# 935 "lexer_c.mll"
+# 942 "lexer_c.mll"
                                             x
-# 5233 "lexer_c.ml"
+# 5240 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 935 "lexer_c.mll"
+# 942 "lexer_c.mll"
                                               ( x ^ string lexbuf )
-# 5237 "lexer_c.ml"
+# 5244 "lexer_c.ml"
 
   | 5 ->
 let
-# 936 "lexer_c.mll"
+# 943 "lexer_c.mll"
                                x
-# 5243 "lexer_c.ml"
+# 5250 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 936 "lexer_c.mll"
+# 943 "lexer_c.mll"
                                               ( x ^ string lexbuf )
-# 5247 "lexer_c.ml"
+# 5254 "lexer_c.ml"
 
   | 6 ->
 let
-# 937 "lexer_c.mll"
+# 944 "lexer_c.mll"
                 v
-# 5253 "lexer_c.ml"
+# 5260 "lexer_c.ml"
 = Lexing.sub_lexeme_char lexbuf (lexbuf.Lexing.lex_start_pos + 1)
 and
-# 937 "lexer_c.mll"
+# 944 "lexer_c.mll"
                        x
-# 5258 "lexer_c.ml"
+# 5265 "lexer_c.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos (lexbuf.Lexing.lex_start_pos + 2) in
-# 938 "lexer_c.mll"
+# 945 "lexer_c.mll"
        ( (match v with (* Machine specific ? *)
          | 'n' -> ()  | 't' -> ()   | 'v' -> ()  | 'b' -> () | 'r' -> ()
          | 'f' -> () | 'a' -> ()
@@ -5273,14 +5280,14 @@ and
 	 );
           x ^ string lexbuf
        )
-# 5277 "lexer_c.ml"
+# 5284 "lexer_c.ml"
 
   | 7 ->
-# 955 "lexer_c.mll"
+# 962 "lexer_c.mll"
         ( Printf.eprintf "%s: LEXER: WIERD end of file in string\n"
 	    !current_commit;
 	  "")
-# 5284 "lexer_c.ml"
+# 5291 "lexer_c.ml"
 
   | __ocaml_lex_state -> lexbuf.Lexing.refill_buff lexbuf;
       __ocaml_lex_string_rec lexbuf __ocaml_lex_state

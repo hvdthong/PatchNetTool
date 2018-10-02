@@ -1,3 +1,10 @@
+(*
+ * This file is part of PatchNet, licensed under the terms of the GPL v2.
+ * See copyright.txt in the PatchNet source code for more information.
+ * The PatchNet source code can be obtained at
+ * https://github.com/hvdthong/PatchNetTool
+ *)
+
 let linux = ref "/dev/shm/linux"
 let before_linux = "/dev/shm/linux-before"
 (*let after_linux = "/mnt/ramdisk/linux-after"*)
