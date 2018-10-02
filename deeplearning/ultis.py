@@ -1,3 +1,8 @@
+#  * This file is part of PatchNet, licensed under the terms of the GPL v2.
+#  * See copyright.txt in the PatchNet source code for more information.
+#  * The PatchNet source code can be obtained at
+#  * https://github.com/hvdthong/PatchNetTool
+
 from extracting import commit_id, commit_stable, commit_msg, commit_date, commit_code
 from reformating import reformat_file, reformat_hunk
 import numpy as np

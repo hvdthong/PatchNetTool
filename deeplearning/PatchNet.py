@@ -1,3 +1,8 @@
+#  * This file is part of PatchNet, licensed under the terms of the GPL v2.
+#  * See copyright.txt in the PatchNet source code for more information.
+#  * The PatchNet source code can be obtained at
+#  * https://github.com/hvdthong/PatchNetTool
+
 import argparse
 from ultis import extract_commit, reformat_commit_code
 from train import train_model

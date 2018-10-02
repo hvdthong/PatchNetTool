@@ -1,3 +1,8 @@
+#  * This file is part of PatchNet, licensed under the terms of the GPL v2.
+#  * See copyright.txt in the PatchNet source code for more information.
+#  * The PatchNet source code can be obtained at
+#  * https://github.com/hvdthong/PatchNetTool
+
 from ultis import load_dict_file, mini_batches, write_file
 from padding import padding_pred_commit
 import os
