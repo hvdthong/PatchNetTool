@@ -26,20 +26,32 @@ Hyperparameters:
 ----------------
 We have five different parameters:
 
-* nfolds: number of folds to do cross-validation
-* iters: number of iterations for training NetML
-* alpha and beta: control the strength of ridge and Network lasso regularization, respectively. 
-* kNN: number of nearest of neighbors 
+* --data_type: Type of data (log messages, code change, or both) used to construct a model. Default: both.
+* --embedding_dim: Dimension of embedding vectors. Default:32
+* --filter_sizes: Sizes of filters used by the convolutional layers. 
+* --num_filters: Number of filters. Default: 32.
+* --hidden_layers: Number of hidden layers. Default: 16.
+* --dropout_keep_prob: Dropout for training PatchNet. Default: 0.5.
+* --l2_reg_lambda: Regularization rate. Default: 1e-5.
+* --learning_rate: Learning rate. Default: 1$e-$4.
+* --batch_size: Batch size. Default: 64. 
+* --num_epochs: Number of epochs. Default: 25. 
 
 Running the model
 ----------------
-Simply run this command to train the network: 
+In the training phase, simply run this command to train the network: 
 
-	$ python run_NetML.py ./data_example/bug_list.txt ./data_example/method_list.txt ./data_example/features.txt ./data_example/groundtruth.txt 10 30 0.1 0.01 10
+	$ python PatchNet.py --train --data training_data.out --model patchnet
+
+In the testing phase, run this command to get a list of predicted scores: 
+
+	$ python PatchNet.py --predict --data test_data.out --model patchnet
 	
-Note that in this case, nfolds=10, iters=30, alpha=0.1, beta=0.01, and kNN=10
+To modify the hyperparameters, please follow the example below:
+
+	$ python PatchNet.py --train --data data.out --model patchnet --embedding_dim 128  --filter_sizes "1,2" --num_filters 64
 
 Example output: 
 ----------------
 
-![Output](./doc/output.png)
+![Output](./figures/output.JPG)
