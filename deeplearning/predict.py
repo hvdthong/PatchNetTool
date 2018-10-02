@@ -16,7 +16,7 @@ def softmax(x):
 
 
 def predict_model(commits, params):
-    path_dict = os.path.abspath(os.path.join(os.path.curdir, 'model', params.model))
+    path_dict = os.path.abspath(os.path.join(os.path.curdir, params.model))
     dict_msg = load_dict_file(path_file=path_dict + '/dict_msg.txt')
     dict_code = load_dict_file(path_file=path_dict + '/dict_code.txt')
 
