@@ -1,4 +1,4 @@
-# PatchNet: A Tool for Deep Patch Classfication [embed]patchnettool.pdf[/embed]
+# PatchNet: A Tool for Deep Patch Classfication [[pdf](https://github.com/hvdthong/PatchNetTool/blob/master/deeplearning/figures/patchnettool.pdf)]
 The figure belows illustrate our tool:
 
 ![The overral design of PatchNet](./figures/overral_design.JPG)
