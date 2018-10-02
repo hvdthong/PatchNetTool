@@ -9,9 +9,11 @@ Please install the neccessary libraries before running our tool:
    
 - python 2.7
 
-- numpy 1.13.1
+- tensorflow 1.4.1 (https://www.tensorflow.org)
 
-- scikit-learn 0.19.0
+- numpy 1.14.3
+
+- scikit-learn 0.19.1
 
 
 Dataset details
