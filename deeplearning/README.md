@@ -55,3 +55,6 @@ Example output:
 ----------------
 
 ![Output](./figures/output.JPG)
+
+Contact: vdthoang.2016@smu.edu.sg 
+----------------
