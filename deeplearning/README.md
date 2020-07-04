@@ -15,13 +15,6 @@ Please install the neccessary libraries before running our tool:
 
 - scikit-learn 0.19.1 (https://scikit-learn.org/stable/)
 
-
-Dataset details
-----------------
-
-* The dataset is put in the folder ./data, namely "newres_funcalls_jul28.out", containing 82,403 patches. 
-
-
 Hyperparameters:
 ----------------
 We have five different parameters:
