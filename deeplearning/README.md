@@ -42,7 +42,7 @@ In the testing phase, run this command to get a list of predicted scores:
 	
 To modify the hyperparameters, please follow the example below:
 
-	$ python PatchNet.py --train --data data.out --model patchnet --embedding_dim 128  --filter_sizes "1,2" --num_filters 64
+	$ python PatchNet.py --train --data training_data.out --model patchnet --embedding_dim 128  --filter_sizes "1,2" --num_filters 64
 
 Example output: 
 ----------------
