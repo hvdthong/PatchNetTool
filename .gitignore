@@ -1,0 +1,5 @@
+*.so
+*.cm[aiox]
+*.cmx[as]
+*.cmt
+*.cmti
