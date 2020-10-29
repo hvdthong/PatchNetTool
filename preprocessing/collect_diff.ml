@@ -256,7 +256,7 @@ let runone commit tag info file =
   let t1 = Unix.gettimeofday () in
   let cmd =
     Printf.sprintf
-      "spatch.opt --debug parse_changes.cocci %s -D data=%s -D tag=%s -D commit=%s -D thefile=%s %s"
+      "spatch --debug parse_changes.cocci %s -D data=%s -D tag=%s -D commit=%s -D thefile=%s %s"
       cocci_opts diffinfo tag commit file file in
   let results = C.cmd_to_list cmd in
   Printf.eprintf "cmd %s\n" cmd;
