@@ -51,8 +51,8 @@ let trim s =
     String.sub s !i (!j - !i + 1)
   else
     ""
-let cores = ref 60
-let chunksize = 10
+let cores = ref 4
+let chunksize = 1
 let tmpdir = ref "/tmp"
 
 let union l1 l2 =
